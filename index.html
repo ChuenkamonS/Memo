@@ -545,7 +545,8 @@ function calcSLTotal(){
 function calcINTTotal(){
   const perPax=parseFloat(document.getElementById('int-perpax')?.value)||0;
   const names=document.querySelectorAll('.int-name').length;
-  document.getElementById('int-total-val').textContent=(perPax*names).toLocaleString('th-TH')+' THB';
+  const el=document.getElementById('int-total-val');
+  if(el)el.textContent=(perPax*names).toLocaleString('th-TH')+' THB';
 }
 function calcHWTotal(){
   let total=0;
@@ -837,7 +838,7 @@ async function go(tab,doPrint){
       if(btn)btn.textContent=origText;
     }
   } else {
-    t.scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>t.scrollIntoView({behavior:'smooth'}),100);
   }
 }
 </script>
