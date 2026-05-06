@@ -3,358 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMO Memo Generator — Software License</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<title>PMO Memo Generator — Orbit Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Sarabun', sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
-.container { max-width: 720px; margin: 0 auto; }
-h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
-.subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; }
-.card.full { grid-column: 1 / -1; }
-label { font-size: 12px; color: #888; display: block; margin-bottom: 6px; }
-input, select, textarea { width: 100%; font-family: 'Sarabun', sans-serif; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; padding: 8px 10px; outline: none; background: #fafafa; color: #1a1a1a; transition: border 0.2s; }
-input:focus, select:focus, textarea:focus { border-color: #888; background: #fff; }
-textarea { resize: vertical; }
-.btn-row { display: flex; gap: 8px; margin-top: 12px; }
-button.primary { flex: 1; padding: 12px; font-size: 15px; font-weight: 500; font-family: 'Sarabun', sans-serif; background: #1a1a1a; color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.2s; }
-button.primary:hover { opacity: 0.85; }
-button.secondary { flex: 1; padding: 9px; font-size: 13px; font-weight: 500; font-family: 'Sarabun', sans-serif; background: #fff; color: #1a1a1a; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; }
-button.secondary:hover { background: #f5f5f3; }
-.badge { display: inline-block; font-size: 11px; background: #f0f0ee; color: #555; border-radius: 6px; padding: 2px 8px; margin-bottom: 1rem; }
-.logo-preview { max-width: 120px; max-height: 60px; object-fit: contain; border: 0.5px solid #eee; border-radius: 8px; margin-top: 8px; display: none; }
-.license-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; align-items: center; }
-.license-row input { font-size: 13px; padding: 6px 8px; }
-.license-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 4px; }
-.license-header span { font-size: 11px; color: #888; }
-.add-btn { font-size: 12px; color: #555; background: none; border: 0.5px dashed #ccc; border-radius: 8px; padding: 6px 12px; cursor: pointer; margin-top: 4px; font-family: 'Sarabun', sans-serif; }
-.add-btn:hover { background: #f5f5f3; }
-.remove-btn { font-size: 11px; color: #e24b4a; background: none; border: none; cursor: pointer; padding: 4px; font-family: 'Sarabun', sans-serif; }
-@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .license-row { grid-template-columns: 1fr; } .license-header { display: none; } }
+/* ===== FORM STYLES ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem}
+.container{max-width:760px;margin:0 auto}
+h1{font-size:22px;font-weight:500;margin-bottom:4px}
+.subtitle{font-size:13px;color:#888;margin-bottom:1.5rem}
+.badge{display:inline-block;font-size:11px;background:#f0f0ee;color:#555;border-radius:6px;padding:2px 8px;margin-bottom:1rem}
+.section-title{font-size:13px;font-weight:600;color:#555;margin:1.5rem 0 0.75rem;padding-bottom:6px;border-bottom:0.5px solid #e0e0e0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.card{background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem}
+.card.full{grid-column:1/-1}
+label{font-size:12px;color:#888;display:block;margin-bottom:6px}
+input,select,textarea{width:100%;font-family:'Sarabun',sans-serif;font-size:14px;border:0.5px solid #ddd;border-radius:8px;padding:8px 10px;outline:none;background:#fafafa;color:#1a1a1a;transition:border .2s}
+input:focus,select:focus,textarea:focus{border-color:#888;background:#fff}
+textarea{resize:vertical}
+.btn-row{display:flex;gap:8px;margin-top:12px}
+button.primary{flex:1;padding:12px;font-size:15px;font-weight:500;font-family:'Sarabun',sans-serif;background:#1a1a1a;color:#fff;border:none;border-radius:10px;cursor:pointer;transition:opacity .2s}
+button.primary:hover{opacity:.85}
+button.secondary{flex:1;padding:9px;font-size:13px;font-weight:500;font-family:'Sarabun',sans-serif;background:#fff;color:#1a1a1a;border:0.5px solid #ddd;border-radius:8px;cursor:pointer}
+button.secondary:hover{background:#f5f5f3}
+.logo-preview{max-width:120px;max-height:60px;object-fit:contain;border:0.5px solid #eee;border-radius:8px;margin-top:8px;display:none}
 
-/* PDF/Print Template */
-#pdf-template { display: none; margin-top: 2rem; }
-@media print {
-  body > .container { display: none !important; }
-  #pdf-template { display: block !important; margin: 0; padding: 0; }
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+/* License rows */
+.lic-header{display:grid;grid-template-columns:2.5fr 1.2fr 1fr 1fr auto;gap:8px;margin-bottom:4px}
+.lic-header span{font-size:11px;color:#888}
+.lic-row{display:grid;grid-template-columns:2.5fr 1.2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+.lic-row input{font-size:13px;padding:6px 8px}
+.add-btn{font-size:12px;color:#555;background:none;border:0.5px dashed #ccc;border-radius:8px;padding:6px 12px;cursor:pointer;margin-top:4px;font-family:'Sarabun',sans-serif}
+.add-btn:hover{background:#f5f5f3}
+.rm-btn{font-size:11px;color:#e24b4a;background:none;border:none;cursor:pointer;padding:4px;font-family:'Sarabun',sans-serif}
+
+/* Account table */
+.acct-header{display:grid;gap:8px;margin-bottom:4px;font-size:11px;color:#888}
+.acct-row{display:grid;gap:8px;margin-bottom:6px;align-items:center}
+.acct-row input{font-size:12px;padding:5px 8px}
+.col-email{grid-column:1}
+
+/* ===== PDF TEMPLATE ===== */
+#pdf-template{display:none;margin-top:2rem}
+@media print{
+  body>.container{display:none!important}
+  #pdf-template{display:block!important;margin:0;padding:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{margin:12mm 15mm}
 }
-.memo-page { font-family: 'Sarabun', 'TH Sarabun New', sans-serif; font-size: 15px; color: #000; background: #fff; padding: 20px 40px; max-width: 800px; margin: 0 auto; }
-.memo-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 2px solid #000; margin-bottom: 20px; }
-.memo-logo { max-height: 55px; max-width: 150px; object-fit: contain; }
-.memo-logo-text { font-size: 18px; font-weight: 700; }
-.memo-title-box { text-align: center; }
-.memo-title { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
-.memo-meta { margin: 16px 0; }
-.memo-meta-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 15px; line-height: 1.6; }
-.memo-meta-label { font-weight: 700; min-width: 80px; }
-.memo-meta-value { flex: 1; border-bottom: 1px solid #000; padding-bottom: 2px; }
-.memo-body { font-size: 15px; line-height: 1.8; margin: 16px 0; text-align: justify; text-indent: 2em; }
-.memo-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
-.memo-table th { background: #d0d0d0; font-weight: 700; text-align: center; padding: 6px 8px; border: 1px solid #000; }
-.memo-table td { padding: 5px 8px; border: 1px solid #000; text-align: center; }
-.memo-table td.left { text-align: left; }
-.memo-table tr.total td { font-weight: 700; background: #f0f0f0; }
-.memo-note { font-size: 13px; color: #333; margin: 8px 0; }
-.memo-closing { font-size: 15px; line-height: 1.8; margin: 12px 0; text-align: justify; text-indent: 2em; }
-.memo-approval { margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #000; }
-.memo-approval-cell { padding: 10px 16px; border-right: 1px solid #000; }
-.memo-approval-cell:last-child { border-right: none; }
-.memo-approval-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; }
-.memo-approval-option { font-size: 13px; margin: 4px 0; }
-.memo-sig-line { margin-top: 20px; font-size: 13px; text-align: center; }
-.memo-footer { margin-top: 16px; border-top: 1px solid #000; padding-top: 8px; text-align: center; font-size: 13px; }
-.memo-page-preview { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 20px 40px; }
+
+.memo-page{
+  font-family:'Sarabun',serif;
+  font-size:15pt;
+  color:#000;
+  background:#fff;
+  padding:30px 44px 36px;
+  max-width:820px;
+  margin:0 auto;
+  line-height:1.7;
+}
+
+/* header */
+.memo-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.memo-logo{max-height:70px;max-width:160px;object-fit:contain}
+.memo-hdr-right{text-align:right;font-size:14pt;line-height:2}
+.underline{text-decoration:underline;font-weight:700}
+
+/* title */
+.memo-title-wrap{text-align:center;margin:4px 0 18px}
+.memo-title{font-size:22pt;font-weight:700;letter-spacing:1px}
+
+/* เรื่อง/เรียน */
+.memo-field{display:flex;gap:10px;margin-bottom:8px;font-size:15pt}
+.memo-field-label{font-weight:700;min-width:60px}
+.memo-field-value{flex:1}
+
+/* body */
+.memo-body{font-size:15pt;line-height:1.9;margin:14px 0}
+.memo-body p{text-indent:2.5em;margin-bottom:6px}
+.memo-list{margin:6px 0 6px 2em;font-size:15pt}
+.memo-list li{margin-bottom:4px;list-style:decimal}
+
+/* tables */
+.memo-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13pt}
+.memo-table th{background:#d0d0d0;font-weight:700;text-align:center;padding:5px 8px;border:1px solid #000}
+.memo-table td{padding:4px 8px;border:1px solid #555;text-align:center}
+.memo-table td.td-left{text-align:left}
+.memo-table tr.total-row td{font-weight:700;background:#ebebeb;border-top:2px solid #000}
+
+/* note */
+.memo-note{font-size:13pt;margin:8px 0 14px}
+.memo-note u{text-decoration:underline}
+
+/* closing */
+.memo-closing{font-size:15pt;line-height:1.9;margin:10px 0 20px}
+.memo-closing p{text-indent:2.5em;margin-bottom:6px}
+
+/* approval box */
+.memo-approval{display:grid;grid-template-columns:1fr 1fr;border:1px solid #000;margin-top:16px}
+.memo-appr-cell{padding:10px 16px}
+.memo-appr-cell:first-child{border-right:1px solid #000}
+.memo-appr-head{font-size:14pt;margin-bottom:6px}
+.memo-appr-opt{font-size:13pt;margin:3px 0}
+.sig-space{height:52px;border-bottom:1px solid #000;margin:16px 20px 6px}
+.sig-name{text-align:center;font-size:14pt}
+.sig-role{text-align:center;font-size:13pt;color:#333}
+.sig-date{text-align:center;font-size:13pt;color:#555;margin-top:2px}
+
+/* footer */
+.memo-footer{margin-top:16px;text-align:center;font-size:13pt;font-weight:700;line-height:1.8}
+.memo-footer-sub{font-size:12pt;font-weight:400}
+
+/* separator */
+.memo-sep{border:none;border-top:0.5px solid #aaa;margin:28px 0}
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="badge">PMO Internal Tool — Orbit Digital</div>
   <h1>สร้าง Memo ขออนุมัติ Software License</h1>
-  <p class="subtitle">กรอกข้อมูลด้านล่าง แล้วกด Preview หรือ Download PDF</p>
+  <p class="subtitle">กรอกข้อมูล แล้วกด Preview หรือ Download PDF ได้เลยค่ะ</p>
 
+  <!-- ข้อมูลทั่วไป -->
+  <div class="section-title">ข้อมูลทั่วไป</div>
   <div class="grid">
-
     <div class="card full">
-      <label>โลโก้บริษัท (ถ้าต้องการ custom)</label>
+      <label>โลโก้บริษัท (optional — ถ้าไม่ upload จะใช้โลโก้ Orbit Digital)</label>
       <input type="file" id="logo-input" accept="image/*" onchange="previewLogo(this)">
-      <img id="logo-preview" class="logo-preview" alt="logo">
+      <img id="logo-preview" class="logo-preview" alt="logo preview">
     </div>
+    <div class="card"><label>เลขที่หนังสือ *</label><input type="text" id="doc-no" placeholder="เช่น 2601030"></div>
+    <div class="card"><label>วันที่ *</label><input type="date" id="reqdate"></div>
+    <div class="card"><label>ชื่อโปรเจกต์ *</label><input type="text" id="project" placeholder="เช่น AOA-MP"></div>
+    <div class="card"><label>เรียน (ตำแหน่ง) *</label><input type="text" id="to-title" placeholder="เช่น ประธานเจ้าหน้าที่บริหาร" value="ประธานเจ้าหน้าที่บริหาร"></div>
+    <div class="card full"><label>เหตุผลในการขอ (เนื้อหาย่อหน้าเปิด)</label><textarea id="intro-reason" rows="3" placeholder="เช่น เป็นโปรแกรมที่ได้รับการอนุมัติและใช้งานอยู่เดิม เพื่อให้การดำเนินโครงการเป็นไปอย่างต่อเนื่อง..."></textarea></div>
+  </div>
 
-    <div class="card">
-      <label>เลขที่หนังสือ (ถ้ามี)</label>
-      <input type="text" id="doc-no" placeholder="เช่น PMO-SL-2568-001">
+  <!-- รายการ Software -->
+  <div class="section-title">รายการ Software License *</div>
+  <div class="card full" style="margin-bottom:12px">
+    <div class="lic-header">
+      <span>ชื่อ Software</span><span>ราคา/เดือน (THB)</span><span>จำนวนเดือน</span><span>จำนวน License</span><span></span>
     </div>
-
-    <div class="card">
-      <label>วันที่ *</label>
-      <input type="date" id="reqdate">
-    </div>
-
-    <div class="card">
-      <label>ชื่อโปรเจกต์ *</label>
-      <input type="text" id="project" placeholder="เช่น Internal PMO Tool">
-    </div>
-
-    <div class="card">
-      <label>ชื่อผู้จัดการโครงการ *</label>
-      <input type="text" id="pm-name" placeholder="เช่น ชื่น สันมณีนิตย์">
-    </div>
-
-    <div class="card">
-      <label>ชื่อผู้อำนวยการโครงการ *</label>
-      <input type="text" id="director-name" placeholder="เช่น วิ้ง วิภาวรรณ">
-    </div>
-
-    <div class="card full">
-      <label>เหตุผลเพิ่มเติม (ถ้ามี)</label>
-      <textarea id="extra-reason" rows="2" placeholder="เช่น เพื่อเพิ่มประสิทธิภาพในการทำงานของทีม..."></textarea>
-    </div>
-
-    <div class="card full">
-      <label>รายการ Software License *</label>
-      <div class="license-header">
-        <span>ชื่อ Software</span>
-        <span>ราคา/เดือน (THB)</span>
-        <span>จำนวนเดือน</span>
-        <span>จำนวน License</span>
-        <span></span>
+    <div id="lic-rows">
+      <div class="lic-row">
+        <input type="text" placeholder="เช่น GitHub Copilot" class="sw-name">
+        <input type="number" placeholder="600" class="sw-price" min="0">
+        <input type="number" placeholder="12" class="sw-months" min="1" value="12">
+        <input type="number" placeholder="5" class="sw-qty" min="1">
+        <button class="rm-btn" onclick="removeRow(this)">ลบ</button>
       </div>
-      <div id="license-rows">
-        <div class="license-row">
-          <input type="text" placeholder="เช่น Figma" class="sw-name">
-          <input type="number" placeholder="490" class="sw-price" min="0">
-          <input type="number" placeholder="6" class="sw-months" min="1" value="6">
-          <input type="number" placeholder="3" class="sw-qty" min="1">
-          <button class="remove-btn" onclick="removeRow(this)">ลบ</button>
-        </div>
-      </div>
-      <button class="add-btn" onclick="addRow()">+ เพิ่มรายการ</button>
     </div>
+    <button class="add-btn" onclick="addRow()">+ เพิ่มรายการ</button>
+  </div>
 
+  <!-- วันที่แปลงเรท -->
+  <div class="grid">
+    <div class="card"><label>วันที่แปลงเรท USD→THB</label><input type="date" id="rate-date"></div>
+    <div class="card"><label>จำนวนเงินเป็นตัวอักษรภาษาไทย</label><input type="text" id="amount-text" placeholder="เช่น สองแสนห้าหมื่นห้าพันบาทถ้วน"></div>
+  </div>
+
+  <!-- ผู้ลงนาม -->
+  <div class="section-title">ผู้ลงนาม</div>
+  <div class="grid">
+    <div class="card"><label>ชื่อผู้จัดการโครงการ *</label><input type="text" id="pm-name" placeholder="เช่น นาง พิรุณรุ้ง แซ่อุ้ย"></div>
+    <div class="card"><label>วันที่ลงนาม PM</label><input type="date" id="pm-sign-date"></div>
+    <div class="card"><label>ชื่อผู้อนุมัติ *</label><input type="text" id="ceo-name" placeholder="เช่น นาย ปกรณ์ เจียมสกุลทิพย์"></div>
+    <div class="card"><label>ตำแหน่งผู้อนุมัติ</label><input type="text" id="ceo-title" placeholder="ประธานเจ้าหน้าที่บริหาร" value="ประธานเจ้าหน้าที่บริหาร"></div>
+  </div>
+
+  <!-- Account (Optional) -->
+  <div class="section-title">ตาราง Account ที่ใช้งาน <span style="font-weight:400;color:#aaa;font-size:11px">(optional)</span></div>
+  <div class="card full" style="margin-bottom:12px">
+    <div style="font-size:12px;color:#888;margin-bottom:8px">ใส่ชื่อคอลัมน์ software ที่ต้องการแสดง (เว้นว่างได้ถ้าไม่ต้องการตารางนี้)</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px" id="acct-cols">
+      <input type="text" placeholder="Col 1 เช่น GitHub Copilot" class="acct-col" style="font-size:12px;padding:5px 8px">
+      <input type="text" placeholder="Col 2" class="acct-col" style="font-size:12px;padding:5px 8px">
+      <input type="text" placeholder="Col 3" class="acct-col" style="font-size:12px;padding:5px 8px">
+      <input type="text" placeholder="Col 4" class="acct-col" style="font-size:12px;padding:5px 8px">
+      <input type="text" placeholder="Col 5" class="acct-col" style="font-size:12px;padding:5px 8px">
+    </div>
+    <div id="acct-rows"></div>
+    <button class="add-btn" onclick="addAcctRow()">+ เพิ่ม Account</button>
   </div>
 
   <div class="btn-row">
-    <button class="secondary" onclick="previewMemo()">Preview ก่อน Print</button>
+    <button class="secondary" onclick="previewMemo()">👁 Preview ก่อน Print</button>
     <button class="primary" onclick="generatePDF()">Download PDF →</button>
   </div>
 </div>
 
-<!-- PDF Template (Orbit Digital style) -->
+<!-- ===== PDF TEMPLATE ===== -->
 <div id="pdf-template">
-<div class="memo-page memo-page-preview" id="memo-page">
+<div class="memo-page">
 
-  <div class="memo-header">
+  <!-- Header -->
+  <div class="memo-hdr">
     <div>
-      <img id="pdf-logo" class="memo-logo" src="data:image/png;base64,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" alt="Orbit Digital Logo" style="display:block;">
-      <div id="pdf-logo-custom" style="display:none;"><img id="pdf-logo-img" class="memo-logo" alt="logo"></div>
+      <img id="pdf-logo" class="memo-logo" src="data:image/png;base64,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" alt="Orbit Digital">
     </div>
-    <div class="memo-title-box">
-      <div class="memo-title">บันทึกข้อความ</div>
-    </div>
-    <div style="min-width: 120px; text-align: right; font-size: 13px; line-height: 1.8;">
-      <div>เลขที่ <span id="pdf-docno" style="border-bottom: 1px solid #000; display: inline-block; min-width: 80px;"></span></div>
-      <div>ลงวันที่ <span id="pdf-date" style="border-bottom: 1px solid #000; display: inline-block; min-width: 80px;"></span></div>
+    <div class="memo-hdr-right">
+      <div>เลขที่ <span class="underline" id="pdf-docno"></span></div>
+      <div>ลงวันที่ <span id="pdf-date"></span></div>
     </div>
   </div>
 
-  <div class="memo-meta">
-    <div class="memo-meta-row">
-      <span class="memo-meta-label">เรื่อง</span>
-      <span class="memo-meta-value">ขออนุมัติงบประมาณเพื่อการจัดซื้อ Program สำหรับการพัฒนาในโครงการ <strong id="pdf-project-title">[Project]</strong> โดยชำระเงินผ่านบัตรเครดิตบริษัท Orbit Digital 0321</span>
-    </div>
-    <div class="memo-meta-row">
-      <span class="memo-meta-label">เรียน</span>
-      <span class="memo-meta-value">ผู้อำนวยการโครงการ</span>
-    </div>
+  <!-- Title -->
+  <div class="memo-title-wrap">
+    <div class="memo-title">บันทึกข้อความ</div>
   </div>
 
-  <div class="memo-body" id="pdf-body"></div>
+  <!-- เรื่อง/เรียน -->
+  <div class="memo-field">
+    <span class="memo-field-label">เรื่อง</span>
+    <span class="memo-field-value" id="pdf-subject"></span>
+  </div>
+  <div class="memo-field">
+    <span class="memo-field-label">เรียน</span>
+    <span class="memo-field-value" id="pdf-to"></span>
+  </div>
 
-  <table class="memo-table" id="pdf-table">
+  <!-- Body -->
+  <div class="memo-body">
+    <p id="pdf-intro"></p>
+    <ol class="memo-list" id="pdf-list"></ol>
+  </div>
+
+  <!-- ตารางสรุปราคา -->
+  <table class="memo-table">
     <thead>
       <tr>
-        <th>No</th>
-        <th>Item</th>
+        <th style="width:5%">No</th>
+        <th style="width:30%">Item</th>
         <th>Price/Month (THB)</th>
         <th>Month</th>
         <th>QTY (License)</th>
         <th>Amount (THB)</th>
       </tr>
     </thead>
-    <tbody id="pdf-table-body"></tbody>
+    <tbody id="pdf-tbody"></tbody>
     <tfoot>
-      <tr class="total">
-        <td colspan="5" style="text-align:right; font-weight:700;">Amount</td>
+      <tr class="total-row">
+        <td colspan="5" style="text-align:right;font-weight:700">Total Amount</td>
         <td id="pdf-total"></td>
       </tr>
     </tfoot>
   </table>
 
-  <div class="memo-note">* หมายเหตุ : เรทราคาโปรแกรมดังกล่าวแปลงเรทเงินตราจากหน่วย USD เป็น THB ณ วันที่ <span id="pdf-rate-date"></span></div>
+  <!-- หมายเหตุ -->
+  <div class="memo-note">* <u><b>หมายเหตุ</b></u> : เรทราคาโปรแกรมดังกล่าวแปลงเรทเงินตราจากหน่วย USD เป็น THB ณ วันที่ <u id="pdf-rate-date"></u></div>
 
-  <div class="memo-closing" id="pdf-closing"></div>
+  <!-- ตาราง Account (optional) -->
+  <div id="pdf-acct-section" style="display:none">
+    <div style="margin-bottom:6px;font-size:14pt">โดยมี Account ที่ใช้งาน ดังตารางนี้</div>
+    <table class="memo-table" id="pdf-acct-table">
+      <thead><tr id="pdf-acct-head"></tr></thead>
+      <tbody id="pdf-acct-body"></tbody>
+    </table>
+  </div>
 
+  <!-- ย่อหน้าปิด -->
+  <div class="memo-closing">
+    <p id="pdf-closing"></p>
+  </div>
+
+  <!-- กล่องลงนาม -->
   <div class="memo-approval">
-    <div class="memo-approval-cell">
-      <div class="memo-approval-title">เรียน ผู้อำนวยการโครงการ เพื่อโปรดพิจารณาอนุมัติดำเนินการ</div>
-      <div class="memo-approval-option">○ เห็นชอบ, เพื่อโปรดพิจารณาอนุมัติ</div>
-      <div class="memo-approval-option">○ อื่นๆ .................................................</div>
-      <div style="margin-top: 16px; text-align: center;">
-        <div style="height: 40px; border-bottom: 1px solid #000; margin-bottom: 4px;"></div>
-        <div id="pdf-pm-name">( )</div>
-        <div>ผู้จัดการโครงการ // ผู้อำนวยการ</div>
-        <div id="pdf-pm-date" style="font-size:12px; color:#666;"></div>
-      </div>
+    <div class="memo-appr-cell">
+      <div class="memo-appr-head" id="pdf-appr-head-left"></div>
+      <div class="memo-appr-opt">o เห็นชอบ, เพื่อโปรดพิจารณาอนุมัติ</div>
+      <div class="memo-appr-opt">o อื่นๆ....................…………..…</div>
+      <div class="sig-space"></div>
+      <div class="sig-name" id="pdf-pm-name"></div>
+      <div class="sig-role">ผู้จัดการโครงการ</div>
+      <div class="sig-date" id="pdf-pm-date"></div>
     </div>
-    <div class="memo-approval-cell">
-      <div class="memo-approval-title">เพื่อโปรดพิจารณาดำเนินการ</div>
-      <div class="memo-approval-option">○ อนุมัติ, เพื่อโปรดพิจารณาดำเนินการ</div>
-      <div class="memo-approval-option">○ อื่นๆ .................................................</div>
-      <div style="margin-top: 16px; text-align: center;">
-        <div style="height: 40px; border-bottom: 1px solid #000; margin-bottom: 4px;"></div>
-        <div id="pdf-director-name">( )</div>
-        <div>ผู้อำนวยการ //</div>
-        <div id="pdf-director-date" style="font-size:12px; color:#666;"></div>
-      </div>
+    <div class="memo-appr-cell">
+      <div class="memo-appr-head">o อนุมัติ, เพื่อโปรดพิจารณาดำเนินการ</div>
+      <div class="memo-appr-opt">o อื่นๆ....................…………..…</div>
+      <div class="sig-space"></div>
+      <div class="sig-name" id="pdf-ceo-name"></div>
+      <div class="sig-role" id="pdf-ceo-title"></div>
+      <div class="sig-date" id="pdf-ceo-date"></div>
     </div>
   </div>
 
+  <!-- Footer -->
   <div class="memo-footer">
-    <strong>บริษัท ออร์บิท ดิจิทัล จำกัด</strong><br>
-    51 ถนนนราธิวาสราชนครินทร์ แขวงสีลม เขตบางรัก กรุงเทพมหานคร
+    บริษัท ออร์บิท ดิจิทัล จำกัด<br>
+    <span class="memo-footer-sub">51 ถนนนราธิวาสราชนครินทร์ แขวงสีลม เขตบางรัก กรุงเทพมหานคร</span>
   </div>
 
 </div>
 </div>
 
 <script>
-let customLogoUrl = '';
+let customLogo = '';
 document.getElementById('reqdate').valueAsDate = new Date();
+document.getElementById('rate-date').valueAsDate = new Date();
+document.getElementById('pm-sign-date').valueAsDate = new Date();
 
 function previewLogo(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    customLogoUrl = e.target.result;
-    const preview = document.getElementById('logo-preview');
-    preview.src = customLogoUrl;
-    preview.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
+  const file = input.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => { customLogo = e.target.result; const p = document.getElementById('logo-preview'); p.src = customLogo; p.style.display = 'block'; };
+  r.readAsDataURL(file);
 }
 
 function addRow() {
-  const container = document.getElementById('license-rows');
-  const row = document.createElement('div');
-  row.className = 'license-row';
-  row.innerHTML = `
-    <input type="text" placeholder="ชื่อ Software" class="sw-name">
-    <input type="number" placeholder="ราคา/เดือน" class="sw-price" min="0">
-    <input type="number" placeholder="เดือน" class="sw-months" min="1" value="6">
-    <input type="number" placeholder="จำนวน" class="sw-qty" min="1">
-    <button class="remove-btn" onclick="removeRow(this)">ลบ</button>
-  `;
-  container.appendChild(row);
+  const c = document.getElementById('lic-rows');
+  const d = document.createElement('div'); d.className = 'lic-row';
+  d.innerHTML = `<input type="text" placeholder="ชื่อ Software" class="sw-name"><input type="number" placeholder="ราคา/เดือน" class="sw-price" min="0"><input type="number" placeholder="เดือน" class="sw-months" min="1" value="12"><input type="number" placeholder="จำนวน" class="sw-qty" min="1"><button class="rm-btn" onclick="removeRow(this)">ลบ</button>`;
+  c.appendChild(d);
 }
+function removeRow(btn) { const rows = document.querySelectorAll('.lic-row'); if (rows.length > 1) btn.parentElement.remove(); }
 
-function removeRow(btn) {
-  const rows = document.querySelectorAll('.license-row');
-  if (rows.length > 1) btn.parentElement.remove();
+function addAcctRow() {
+  const cols = document.querySelectorAll('.acct-col');
+  const colCount = cols.length;
+  const c = document.getElementById('acct-rows');
+  const d = document.createElement('div'); d.className = 'acct-row';
+  d.style.display = 'grid';
+  d.style.gridTemplateColumns = `2fr repeat(${colCount}, 1fr) auto`;
+  d.style.gap = '6px';
+  d.style.marginBottom = '6px';
+  let html = `<input type="text" placeholder="email@orbitdigital.co.th" class="acct-email" style="font-size:12px;padding:5px 8px">`;
+  for (let i = 0; i < colCount; i++) {
+    html += `<select class="acct-val" style="font-size:12px;padding:5px 6px"><option value="-">-</option><option value="✓">✓</option></select>`;
+  }
+  html += `<button class="rm-btn" onclick="this.parentElement.remove()">ลบ</button>`;
+  d.innerHTML = html;
+  c.appendChild(d);
 }
 
 function val(id) { return document.getElementById(id).value.trim(); }
 
-function getLicenseRows() {
-  const rows = document.querySelectorAll('.license-row');
-  return Array.from(rows).map(row => ({
-    name: row.querySelector('.sw-name').value.trim(),
-    price: parseFloat(row.querySelector('.sw-price').value) || 0,
-    months: parseInt(row.querySelector('.sw-months').value) || 6,
-    qty: parseInt(row.querySelector('.sw-qty').value) || 0,
+function getLicenses() {
+  return Array.from(document.querySelectorAll('.lic-row')).map(r => ({
+    name: r.querySelector('.sw-name').value.trim(),
+    price: parseFloat(r.querySelector('.sw-price').value) || 0,
+    months: parseInt(r.querySelector('.sw-months').value) || 12,
+    qty: parseInt(r.querySelector('.sw-qty').value) || 0,
   })).filter(r => r.name);
+}
+
+function getAcctCols() {
+  return Array.from(document.querySelectorAll('.acct-col')).map(c => c.value.trim()).filter(c => c);
+}
+
+function getAcctRows() {
+  return Array.from(document.getElementById('acct-rows').querySelectorAll('.acct-row')).map(r => ({
+    email: r.querySelector('.acct-email').value.trim(),
+    vals: Array.from(r.querySelectorAll('.acct-val')).map(s => s.value),
+  })).filter(r => r.email);
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function fmtShortDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yy = d.getFullYear() + 543;
+  return `${dd}/${mm}/${yy}`;
 }
 
 function fillTemplate() {
   const project = val('project');
   const pmName = val('pm-name');
-  const directorName = val('director-name');
-  const reqdate = val('reqdate');
-  const docNo = val('doc-no');
-  const extraReason = val('extra-reason');
-  const licenses = getLicenseRows();
+  const licenses = getLicenses();
 
   if (!project || !pmName || licenses.length === 0) {
     alert('กรุณากรอกชื่อโปรเจกต์, ผู้จัดการโครงการ และรายการ Software อย่างน้อย 1 รายการ');
     return false;
   }
 
-  const d = reqdate ? new Date(reqdate) : new Date();
-  const dateStr = d.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
-
   // Logo
-  if (customLogoUrl) {
-    document.querySelector('#pdf-logo').style.display = 'none';
-    document.getElementById('pdf-logo-custom').style.display = 'block';
-    document.getElementById('pdf-logo-img').src = customLogoUrl;
-  } else {
-    document.querySelector('#pdf-logo').style.display = 'block';
-    document.getElementById('pdf-logo-custom').style.display = 'none';
-  }
+  if (customLogo) document.getElementById('pdf-logo').src = customLogo;
 
-  document.getElementById('pdf-docno').textContent = docNo || '';
-  document.getElementById('pdf-date').textContent = dateStr;
-  document.getElementById('pdf-project-title').textContent = project;
-  document.getElementById('pdf-rate-date').textContent = dateStr;
-  document.getElementById('pdf-pm-name').textContent = '( ' + pmName + ' )';
-  document.getElementById('pdf-pm-date').textContent = dateStr;
-  document.getElementById('pdf-director-name').textContent = '( ' + (directorName || '..................') + ' )';
-  document.getElementById('pdf-director-date').textContent = '  ';
+  // Header
+  document.getElementById('pdf-docno').textContent = val('doc-no') || '-';
+  document.getElementById('pdf-date').textContent = fmtDate(val('reqdate'));
 
-  // Body paragraph
-  const licenseList = licenses.map(l => `โปรแกรม ${l.name}   ${l.qty} License ราคา ${l.price.toLocaleString('th-TH')} บาท/เดือน (ระยะเวลา ${l.months} เดือน)`).join('\n');
-  document.getElementById('pdf-body').innerText =
-    `เนื่องจากพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องใช้โปรแกรมดังต่อไปนี้ เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพมากยิ่งขึ้น${extraReason ? ' ' + extraReason : ''} จึงขออนุมัติงบประมาณเพื่อดำเนินการซื้อโปรแกรมตามรายละเอียดดังนี้`;
+  // เรื่อง/เรียน
+  document.getElementById('pdf-subject').textContent =
+    `ขออนุมัติงบประมาณเพื่อการจัดซื้อโปรแกรมสำหรับการพัฒนาในโครงการ ${project} โดยชำระเงินผ่านบัตรเครดิตบริษัท Orbit Digital 0321`;
+  document.getElementById('pdf-to').textContent = val('to-title');
+
+  // Intro paragraph
+  const introReason = val('intro-reason') || 'เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพมากยิ่งขึ้น';
+  document.getElementById('pdf-intro').textContent =
+    `เนื่องด้วยพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องใช้งานโปรแกรมดังต่อไปนี้ ${introReason} จึงขออนุมัติงบประมาณเพื่อดำเนินการซื้อโปรแกรมตามรายละเอียดดังต่อไปนี้`;
+
+  // List
+  const dateRange = fmtDate(val('reqdate')).replace(/^\S+\s/, ''); // เดือน ปี
+  const reqDateObj = val('reqdate') ? new Date(val('reqdate')) : new Date();
+  const startMonth = reqDateObj.toLocaleDateString('th-TH', { month: 'long', year: 'numeric' });
+  const endMonth = new Date(reqDateObj.getFullYear(), 11, 1).toLocaleDateString('th-TH', { month: 'long', year: 'numeric' });
+  const listEl = document.getElementById('pdf-list');
+  listEl.innerHTML = '';
+  licenses.forEach(l => {
+    const li = document.createElement('li');
+    li.textContent = `โปรแกรม ${l.name}   License ราคา ${l.price.toLocaleString('th-TH')} บาท/เดือน (ช่วงเดือน${startMonth} - ${endMonth})`;
+    listEl.appendChild(li);
+  });
 
   // Table
-  const tbody = document.getElementById('pdf-table-body');
+  const tbody = document.getElementById('pdf-tbody');
   tbody.innerHTML = '';
   let total = 0;
   licenses.forEach((l, i) => {
     const amount = l.price * l.months * l.qty;
     total += amount;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${i+1}</td><td class="left">${l.name}</td><td>${l.price.toLocaleString('th-TH')}</td><td>${l.months}</td><td>${l.qty}</td><td>${amount.toLocaleString('th-TH')}</td>`;
-    tbody.appendChild(tr);
+    tbody.innerHTML += `<tr><td>${i+1}</td><td class="td-left">${l.name}</td><td>${l.price.toLocaleString('th-TH')}</td><td>${l.months}</td><td>${l.qty}</td><td>${amount.toLocaleString('th-TH')}</td></tr>`;
   });
   document.getElementById('pdf-total').textContent = total.toLocaleString('th-TH');
+
+  // Rate date
+  document.getElementById('pdf-rate-date').textContent = fmtDate(val('rate-date'));
+
+  // Account table (optional)
+  const acctCols = getAcctCols();
+  const acctRows = getAcctRows();
+  if (acctCols.length > 0 && acctRows.length > 0) {
+    document.getElementById('pdf-acct-section').style.display = 'block';
+    // Head
+    const head = document.getElementById('pdf-acct-head');
+    head.innerHTML = `<th>No</th><th>Account</th>${acctCols.map(c => `<th>${c}</th>`).join('')}`;
+    // Body
+    const abody = document.getElementById('pdf-acct-body');
+    abody.innerHTML = '';
+    acctRows.forEach((r, i) => {
+      const cells = acctCols.map((_, ci) => `<td>${r.vals[ci] || '-'}</td>`).join('');
+      abody.innerHTML += `<tr><td>${i+1}</td><td class="td-left">${r.email}</td>${cells}</tr>`;
+    });
+  } else {
+    document.getElementById('pdf-acct-section').style.display = 'none';
+  }
 
   // Closing paragraph
   const totalSeats = licenses.reduce((s, l) => s + l.qty, 0);
   const maxMonths = Math.max(...licenses.map(l => l.months));
-  const totalText = total.toLocaleString('th-TH');
-  document.getElementById('pdf-closing').innerText =
-    `ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายดังกล่าว ซึ่งเป็นค่าใช้จ่ายซื้อ Software License จำนวนรวมทั้งหมด ${totalSeats} Seats ระยะเวลา ${maxMonths} เดือน รวมเป็นจำนวนเงินไม่เกิน ${totalText} บาท อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าบริการ ซึ่งให้อำนาจแก่ผู้อำนวยการในวงเงินไม่เกิน 500,000 บาท`;
+  const amtText = val('amount-text');
+  const toTitle = val('to-title');
+  document.getElementById('pdf-closing').textContent =
+    `ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายดังกล่าว ซึ่งเป็นค่าใช้จ่ายซื้อ Software License จำนวนรวมทั้งหมด ${totalSeats} Seats ระยะเวลา ${maxMonths} เดือน รวมเป็นจำนวนเงินไม่เกิน ${total.toLocaleString('th-TH')} บาท${amtText ? ' (' + amtText + ')' : ''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าบริการ ซึ่งให้อำนาจแก่${toTitle}ในวงเงินไม่เกิน 2,000,000 บาท`;
+
+  // Approval box
+  document.getElementById('pdf-appr-head-left').textContent = `เรียน${toTitle} เพื่อโปรดพิจารณาอนุมัติดำเนินการ`;
+  document.getElementById('pdf-pm-name').textContent = `( ${pmName} )`;
+  document.getElementById('pdf-pm-date').textContent = fmtShortDate(val('pm-sign-date'));
+  document.getElementById('pdf-ceo-name').textContent = `( ${val('ceo-name') || '................................'} )`;
+  document.getElementById('pdf-ceo-title').textContent = val('ceo-title');
+  document.getElementById('pdf-ceo-date').textContent = fmtShortDate(val('pm-sign-date'));
 
   return true;
 }
 
 function previewMemo() {
   if (!fillTemplate()) return;
-  const tmpl = document.getElementById('pdf-template');
-  tmpl.style.display = 'block';
-  tmpl.scrollIntoView({ behavior: 'smooth' });
+  const t = document.getElementById('pdf-template');
+  t.style.display = 'block';
+  t.scrollIntoView({ behavior: 'smooth' });
 }
 
 function generatePDF() {
   if (!fillTemplate()) return;
   document.getElementById('pdf-template').style.display = 'block';
-  setTimeout(() => window.print(), 300);
+  setTimeout(() => window.print(), 350);
 }
+
+// Init one acct row
+addAcctRow();
 </script>
 </body>
 </html>
