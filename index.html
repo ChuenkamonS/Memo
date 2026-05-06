@@ -760,17 +760,58 @@ const TAB_PREFIX={sl:'SL',int:'INT',hw:'HW',ent:'ENT',dep:'DEP'};
 const TAB_DATE={sl:'sl-date',int:'int-date',hw:'hw-date',ent:'ent-date',dep:'dep-date'};
 const TAB_DOCNO={sl:'sl-docno',int:'int-docno',hw:'hw-docno',ent:'ent-docno',dep:'dep-docno'};
 
-function go(tab,print){
+async function go(tab,print){
   if(!FILL[tab]())return;
   const t=document.getElementById('pdf-template');
   t.style.display='block';
   if(print){
-    // Fix #4: set document title for PDF filename
     const type=TAB_PREFIX[tab];
     const docno=v(TAB_DOCNO[tab]);
     const date=v(TAB_DATE[tab]);
-    document.title=getFileName(type,docno,date).replace('.pdf','');
-    setTimeout(()=>{window.print();setTimeout(()=>{document.title='PMO Memo Generator — Orbit Digital';},1000);},350);
+    const filename=getFileName(type,docno,date);
+    // Get memo content HTML
+    const memoPage=document.querySelector('.memo-page');
+    if(!memoPage){return;}
+    // Convert logo to base64
+    let logoBase64='';
+    try{
+      const logoImg=document.getElementById('pdf-logo');
+      if(logoImg&&logoImg.src&&!logoImg.src.startsWith('data:')){
+        const resp=await fetch(logoImg.src);
+        const blob=await resp.blob();
+        logoBase64=await new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(blob);});
+      } else if(logoImg&&logoImg.src.startsWith('data:')){
+        logoBase64=logoImg.src;
+      }
+    }catch(e){console.warn('Logo fetch failed',e);}
+    // Show loading
+    const btn=event?.target;
+    const origText=btn?.textContent||'';
+    if(btn)btn.textContent='กำลัง Generate...';
+    try{
+      const res=await fetch('/api/generate-pdf',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          html:memoPage.innerHTML,
+          filename:filename,
+          logoBase64:logoBase64
+        })
+      });
+      if(!res.ok){throw new Error('API error '+res.status);}
+      const blob=await res.blob();
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download=filename;a.click();
+      URL.revokeObjectURL(url);
+    }catch(err){
+      console.error(err);
+      alert('ไม่สามารถ generate PDF ได้ กำลังใช้ browser print แทนค่ะ');
+      document.title=filename.replace('.pdf','');
+      setTimeout(()=>{window.print();setTimeout(()=>{document.title='PMO Memo Generator — Orbit Digital';},1000);},350);
+    }finally{
+      if(btn)btn.textContent=origText;
+    }
   } else {
     t.scrollIntoView({behavior:'smooth'});
   }
