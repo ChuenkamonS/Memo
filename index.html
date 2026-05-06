@@ -22,9 +22,12 @@ h1{font-size:22px;font-weight:500;margin-bottom:4px}
 .card{background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem}
 .card.full{grid-column:1/-1}
 label{font-size:12px;color:#888;display:block;margin-bottom:5px}
-input,select,textarea{width:100%;font-family:'Sarabun',sans-serif;font-size:14px;border:0.5px solid #ddd;border-radius:8px;padding:8px 10px;outline:none;background:#fafafa;color:#1a1a1a;transition:border .2s}
-input:focus,select:focus,textarea:focus{border-color:#185FA5;background:#fff}
+input,select,textarea{width:100%;font-family:'Sarabun',sans-serif;font-size:14px;border:0.5px solid #ddd;border-radius:8px;padding:8px 10px;outline:none;background:#fff;color:#1a1a1a;transition:border .2s}
+/* Fix #6: placeholder lighter */
+input::placeholder,textarea::placeholder{color:#bbb}
+input:focus,select:focus,textarea:focus{border-color:#185FA5}
 textarea{resize:vertical}
+select{color:#1a1a1a}
 .btn-row{display:flex;gap:8px;margin-top:14px}
 button.primary{flex:1;padding:12px;font-size:15px;font-weight:600;font-family:'Sarabun',sans-serif;background:#185FA5;color:#fff;border:none;border-radius:10px;cursor:pointer}
 button.primary:hover{opacity:.85}
@@ -37,9 +40,25 @@ button.secondary:hover{background:#E6F1FB}
 .row-hdr{display:grid;gap:8px;margin-bottom:4px}
 .row-hdr span{font-size:11px;color:#888}
 .ri{font-size:13px;padding:6px 8px}
+.ri::placeholder{color:#bbb}
 .add-btn{font-size:12px;color:#185FA5;background:#E6F1FB;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;margin-top:6px;font-family:'Sarabun',sans-serif;font-weight:500}
 .rm-btn{font-size:11px;color:#e24b4a;background:none;border:none;cursor:pointer;padding:4px;font-family:'Sarabun',sans-serif}
 .name-num{font-size:12px;color:#888;min-width:22px;text-align:center}
+/* Fix #7: account table header block align */
+.acct-table-wrap{overflow-x:auto}
+.acct-fixed-table{width:100%;border-collapse:collapse;font-size:12px}
+.acct-fixed-table th{background:#E6F1FB;color:#185FA5;font-weight:600;padding:6px 8px;border:0.5px solid #c8ddf5;text-align:center;font-size:11px}
+.acct-fixed-table th.th-email{text-align:left}
+.acct-fixed-table td{padding:4px 4px;border:0.5px solid #eee;vertical-align:middle}
+.acct-fixed-table td input[type=text]{font-size:12px;padding:4px 6px}
+.acct-fixed-table td select{font-size:12px;padding:4px 4px;text-align:center}
+.acct-fixed-table td.td-rm{text-align:center;width:32px}
+/* total amount display */
+.total-display{background:#E6F1FB;border:1px solid #185FA5;border-radius:8px;padding:10px 16px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.total-display span{font-size:13px;color:#185FA5;font-weight:600}
+.total-display .total-val{font-size:18px;font-weight:700;color:#0C447C}
+/* other reason field */
+.other-reason-wrap{margin-top:8px;display:none}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.row-sl,.row-hw,.row-dep{grid-template-columns:1fr}.row-hdr{display:none}}
 
 /* ===== PDF ===== */
@@ -50,55 +69,29 @@ button.secondary:hover{background:#E6F1FB}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   @page{size:A4;margin:15mm 20mm}
 }
-
-/* Memo page — เหมือน PDF ต้นฉบับ */
-.memo-page{
-  font-family:'TH Sarabun New','Sarabun',serif;
-  font-size:10pt;
-  color:#000;
-  background:#fff;
-  padding:28px 40px 36px;
-  max-width:820px;
-  margin:0 auto;
-  line-height:1.8;
-}
-
-/* Header */
+.memo-page{font-family:'TH Sarabun New','Sarabun',serif;font-size:10pt;color:#000;background:#fff;padding:28px 40px 36px;max-width:820px;margin:0 auto;line-height:1.8}
 .mp-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .mp-logo{max-height:64px;max-width:150px;object-fit:contain}
 .mp-hdr-right{text-align:right;font-size:10pt;line-height:2}
 .mp-hdr-right .num{text-decoration:underline;font-weight:700}
-
-/* Title */
 .mp-title{text-align:center;font-size:16pt;font-weight:700;letter-spacing:1px;margin-bottom:20px}
-
-/* เรื่อง/เรียน */
 .mp-field{display:flex;gap:0;margin-bottom:6px;font-size:10pt;line-height:1.8}
 .mp-field-label{font-weight:700;min-width:80px}
 .mp-field-value{flex:1}
-
-/* Body */
 .mp-body{font-size:10pt;line-height:1.9;margin:12px 0}
 .mp-body p{text-indent:3em;margin-bottom:4px}
 .mp-list{margin:4px 0 4px 3em;font-size:10pt}
 .mp-list li{margin-bottom:3px}
-
-/* Table */
 .mp-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:10pt}
 .mp-table th{background:#d0d0d0;font-weight:700;text-align:center;padding:4px 8px;border:1px solid #555}
 .mp-table td{padding:3px 8px;border:1px solid #888;text-align:center;color:#000}
 .mp-table td.tdl{text-align:left}
 .mp-table tr.tr-total td{font-weight:700;background:#ebebeb;border-top:1.5px solid #333}
-
-/* Note */
 .mp-note{font-size:9pt;color:#333;margin:4px 0 12px}
-
-/* Closing */
 .mp-closing{font-size:10pt;line-height:1.9;margin:10px 0 20px}
 .mp-closing p{text-indent:3em}
-
-/* Approval */
-.mp-approval{display:grid;grid-template-columns:1fr 1fr;border:1px solid #555;margin-top:12px}
+/* Fix #3: no border on approval box */
+.mp-approval{display:grid;grid-template-columns:1fr 1fr;margin-top:12px}
 .mp-appr-cell{padding:10px 14px}
 .mp-appr-cell:first-child{border-right:1px solid #555}
 .mp-appr-head{font-size:10pt;font-weight:700;margin-bottom:5px}
@@ -107,12 +100,8 @@ button.secondary:hover{background:#E6F1FB}
 .mp-sig-name{text-align:center;font-size:10pt;font-weight:700}
 .mp-sig-role{text-align:center;font-size:10pt;color:#333}
 .mp-sig-date{text-align:center;font-size:9pt;color:#666;margin-top:2px}
-
-/* Footer */
 .mp-footer{margin-top:14px;border-top:1px solid #888;padding-top:8px;text-align:center;font-size:10pt;font-weight:700;line-height:1.8}
 .mp-footer-sub{font-weight:400;font-size:9.5pt;color:#444}
-
-/* Preview card */
 .preview-wrap{background:#e8e8e6;padding:8px;max-width:820px;margin:0 auto;border-radius:2px}
 </style>
 </head>
@@ -130,7 +119,7 @@ button.secondary:hover{background:#E6F1FB}
     <button class="tab-btn" onclick="switchTab('dep',this)">🚀 Deployment</button>
   </div>
 
-  <!-- SL -->
+  <!-- ===== SL ===== -->
   <div class="tab-panel active" id="tab-sl">
     <div class="sec">ข้อมูลทั่วไป</div>
     <div class="grid">
@@ -138,13 +127,31 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>วันที่ *</label><input type="date" id="sl-date"></div>
       <div class="card"><label>ชื่อโปรเจกต์ *</label><input type="text" id="sl-project" placeholder="เช่น AOA-MP"></div>
       <div class="card"><label>เรียน *</label><input type="text" id="sl-to" value="ประธานเจ้าหน้าที่บริหาร"></div>
-      <div class="card full"><label>เหตุผลในการขอ</label><textarea id="sl-reason" rows="2" placeholder="เช่น เป็นโปรแกรมที่ได้รับการอนุมัติและใช้งานอยู่เดิม..."></textarea></div>
+      <!-- Fix #1: Dropdown for reason -->
+      <div class="card full">
+        <label>เหตุผลในการขอ *</label>
+        <select id="sl-reason-select" onchange="toggleOtherReason('sl')">
+          <option value="">-- เลือกเหตุผล --</option>
+          <option value="เป็นโปรแกรมที่ได้รับการอนุมัติและใช้งานอยู่เดิม เพื่อให้การดำเนินโครงการเป็นไปอย่างต่อเนื่องและมีประสิทธิภาพ">เป็นโปรแกรมที่ได้รับการอนุมัติและใช้งานอยู่เดิม เพื่อให้การดำเนินโครงการเป็นไปอย่างต่อเนื่องและมีประสิทธิภาพ</option>
+          <option value="เป็นโปรแกรมใหม่ที่จำเป็นต้องใช้เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพมากยิ่งขึ้น">เป็นโปรแกรมใหม่ที่จำเป็นต้องใช้เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพมากยิ่งขึ้น</option>
+          <option value="เพื่ออัปเกรดการใช้งานโปรแกรมให้รองรับการทำงานของทีมที่เพิ่มขึ้น">เพื่ออัปเกรดการใช้งานโปรแกรมให้รองรับการทำงานของทีมที่เพิ่มขึ้น</option>
+          <option value="other">อื่นๆ (กรอกเอง)</option>
+        </select>
+        <div class="other-reason-wrap" id="sl-other-wrap">
+          <textarea id="sl-reason-other" rows="2" placeholder="ระบุเหตุผล..."></textarea>
+        </div>
+      </div>
     </div>
     <div class="sec">รายการ Software *</div>
     <div class="card full" style="margin-bottom:12px">
       <div class="row-hdr row-sl"><span>ชื่อ Software</span><span>ราคา/เดือน (THB)</span><span>เดือน</span><span>จำนวน</span><span></span></div>
-      <div id="sl-rows"><div class="row-sl"><input class="ri sw-name" type="text" placeholder="GitHub Copilot"><input class="ri sw-price" type="number" placeholder="600" min="0"><input class="ri sw-months" type="number" value="12" min="1"><input class="ri sw-qty" type="number" placeholder="5" min="1"><button class="rm-btn" onclick="rmRow(this)">ลบ</button></div></div>
+      <div id="sl-rows"><div class="row-sl"><input class="ri sw-name" type="text" placeholder="GitHub Copilot"><input class="ri sw-price" type="number" placeholder="600" min="0"><input class="ri sw-months" type="number" value="12" min="1"><input class="ri sw-qty" type="number" placeholder="5" min="1"><button class="rm-btn" onclick="rmRow(this);calcSLTotal()">ลบ</button></div></div>
       <button class="add-btn" onclick="addSwRow()">+ เพิ่มรายการ</button>
+      <!-- Fix #5: Total Amount -->
+      <div class="total-display" id="sl-total-display">
+        <span>Total Amount</span>
+        <span class="total-val" id="sl-total-val">0 THB</span>
+      </div>
     </div>
     <div class="grid">
       <div class="card"><label>วันที่แปลงเรท USD→THB</label><input type="date" id="sl-ratedate"></div>
@@ -157,17 +164,23 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>ชื่อผู้อนุมัติ</label><input type="text" id="sl-ceo" placeholder="เช่น นาย ปกรณ์ เจียมสกุลทิพย์"></div>
       <div class="card"><label>ตำแหน่งผู้อนุมัติ</label><input type="text" id="sl-ceotitle" value="ประธานเจ้าหน้าที่บริหาร"></div>
     </div>
+    <!-- Fix #7: Account table fixed alignment -->
     <div class="sec">ตาราง Account <span style="font-weight:400;color:#aaa;font-size:11px">(optional)</span></div>
     <div class="card full" style="margin-bottom:12px">
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px">
-        <input type="text" placeholder="Col 1 เช่น GitHub Copilot" class="acct-col" style="font-size:12px;padding:5px 8px">
-        <input type="text" placeholder="Col 2" class="acct-col" style="font-size:12px;padding:5px 8px">
-        <input type="text" placeholder="Col 3" class="acct-col" style="font-size:12px;padding:5px 8px">
-        <input type="text" placeholder="Col 4" class="acct-col" style="font-size:12px;padding:5px 8px">
-        <input type="text" placeholder="Col 5" class="acct-col" style="font-size:12px;padding:5px 8px">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">
+        <input type="text" placeholder="Col 1 เช่น GitHub" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 2" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 3" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 4" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 5" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
       </div>
-      <div id="sl-acct-rows"></div>
-      <button class="add-btn" onclick="addAcctRow()">+ เพิ่ม Account</button>
+      <div class="acct-table-wrap">
+        <table class="acct-fixed-table" id="acct-fixed-table">
+          <thead id="acct-fixed-head"></thead>
+          <tbody id="acct-fixed-body"></tbody>
+        </table>
+      </div>
+      <button class="add-btn" style="margin-top:8px" onclick="addAcctTableRow()">+ เพิ่ม Account</button>
     </div>
     <div class="btn-row">
       <button class="secondary" onclick="go('sl',false)">Preview</button>
@@ -175,28 +188,40 @@ button.secondary:hover{background:#E6F1FB}
     </div>
   </div>
 
-  <!-- INT -->
+  <!-- ===== INT ===== -->
   <div class="tab-panel" id="tab-int">
     <div class="sec">ข้อมูลทั่วไป</div>
     <div class="grid">
-      <div class="card"><label>เลขที่หนังสือ</label><input type="text" id="int-docno"></div>
+      <div class="card"><label>เลขที่หนังสือ</label><input type="text" id="int-docno" placeholder="เช่น 2601031"></div>
       <div class="card"><label>วันที่ *</label><input type="date" id="int-date"></div>
       <div class="card"><label>ชื่อโปรเจกต์ / ทีม *</label><input type="text" id="int-project" placeholder="เช่น AOA-MP"></div>
       <div class="card"><label>เรียน *</label><input type="text" id="int-to" value="Project director โครงการ"></div>
       <div class="card"><label>ไตรมาส / ครั้งที่</label><input type="text" id="int-quarter" placeholder="เช่น Q1 / 2568"></div>
       <div class="card"><label>วันที่จัดกิจกรรม *</label><input type="date" id="int-actdate"></div>
-      <div class="card"><label>วงเงินต่อคน (บาท) *</label><input type="number" id="int-perpax" value="1500" min="0"></div>
+      <div class="card"><label>วงเงินต่อคน (บาท) *</label><input type="number" id="int-perpax" value="1500" min="0" oninput="calcINTTotal()"></div>
       <div class="card"><label>จำนวนเงินต่อคนเป็นตัวอักษร</label><input type="text" id="int-amttext" placeholder="เช่น หนึ่งพันห้าร้อยบาทถ้วน"></div>
-      <div class="card full"><label>วัตถุประสงค์</label><textarea id="int-reason" rows="2" placeholder="เพื่อเสริมสร้างกำลังใจในการปฏิบัติงาน และส่งเสริมการทำงานเป็นทีม"></textarea></div>
+      <div class="card full">
+        <label>วัตถุประสงค์</label>
+        <select id="int-reason-select" onchange="toggleOtherReason('int')">
+          <option value="เพื่อเสริมสร้างกำลังใจในการปฏิบัติงาน และส่งเสริมการทำงานเป็นทีม">เพื่อเสริมสร้างกำลังใจในการปฏิบัติงาน และส่งเสริมการทำงานเป็นทีม</option>
+          <option value="เพื่อเสริมสร้างความสัมพันธ์ในทีมและพัฒนาการทำงานร่วมกัน">เพื่อเสริมสร้างความสัมพันธ์ในทีมและพัฒนาการทำงานร่วมกัน</option>
+          <option value="other">อื่นๆ (กรอกเอง)</option>
+        </select>
+        <div class="other-reason-wrap" id="int-other-wrap"><textarea id="int-reason-other" rows="2" placeholder="ระบุวัตถุประสงค์..."></textarea></div>
+      </div>
     </div>
     <div class="sec">รายชื่อผู้เข้าร่วม *</div>
     <div class="card full" style="margin-bottom:12px">
-      <div id="int-names"><div class="row-name"><span class="name-num">1.</span><input type="text" class="int-name ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('int-names','name-num')">ลบ</button></div></div>
-      <button class="add-btn" onclick="addNameRow('int-names','int-name')">+ เพิ่มรายชื่อ</button>
+      <div id="int-names"><div class="row-name"><span class="name-num">1.</span><input type="text" class="int-name ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('int-names');calcINTTotal()">ลบ</button></div></div>
+      <button class="add-btn" onclick="addNameRow('int-names','int-name');calcINTTotal()">+ เพิ่มรายชื่อ</button>
+      <div class="total-display" id="int-total-display" style="margin-top:10px">
+        <span>Total Amount (ประมาณ)</span>
+        <span class="total-val" id="int-total-val">0 THB</span>
+      </div>
     </div>
     <div class="sec">ผู้ลงนาม</div>
     <div class="grid">
-      <div class="card"><label>ชื่อผู้จัดการโครงการ *</label><input type="text" id="int-pm"></div>
+      <div class="card"><label>ชื่อผู้จัดการโครงการ *</label><input type="text" id="int-pm" placeholder="เช่น นาง พิรุณรุ้ง แซ่อุ้ย"></div>
       <div class="card"><label>วันที่ลงนาม</label><input type="date" id="int-signdate"></div>
       <div class="card"><label>ชื่อผู้อนุมัติ</label><input type="text" id="int-dir"></div>
       <div class="card"><label>ตำแหน่งผู้อนุมัติ</label><input type="text" id="int-dirtitle" value="ผู้อำนวยการโครงการ"></div>
@@ -207,7 +232,7 @@ button.secondary:hover{background:#E6F1FB}
     </div>
   </div>
 
-  <!-- HW -->
+  <!-- ===== HW ===== -->
   <div class="tab-panel" id="tab-hw">
     <div class="sec">ข้อมูลทั่วไป</div>
     <div class="grid">
@@ -215,17 +240,30 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>วันที่ *</label><input type="date" id="hw-date"></div>
       <div class="card"><label>ชื่อโปรเจกต์ *</label><input type="text" id="hw-project" placeholder="เช่น AOA-MP"></div>
       <div class="card"><label>เรียน *</label><input type="text" id="hw-to" value="ประธานเจ้าหน้าที่บริหาร"></div>
-      <div class="card full"><label>เหตุผล</label><textarea id="hw-reason" rows="2" placeholder="เพื่อใช้ในการพัฒนาและทดสอบระบบของโครงการ"></textarea></div>
+      <div class="card full">
+        <label>เหตุผล</label>
+        <select id="hw-reason-select" onchange="toggleOtherReason('hw')">
+          <option value="เพื่อใช้ในการพัฒนาและทดสอบระบบของโครงการ">เพื่อใช้ในการพัฒนาและทดสอบระบบของโครงการ</option>
+          <option value="เพื่อทดแทนอุปกรณ์เดิมที่เสื่อมสภาพและไม่สามารถใช้งานได้">เพื่อทดแทนอุปกรณ์เดิมที่เสื่อมสภาพและไม่สามารถใช้งานได้</option>
+          <option value="เพื่อรองรับการขยายทีมและเพิ่มประสิทธิภาพการทำงาน">เพื่อรองรับการขยายทีมและเพิ่มประสิทธิภาพการทำงาน</option>
+          <option value="other">อื่นๆ (กรอกเอง)</option>
+        </select>
+        <div class="other-reason-wrap" id="hw-other-wrap"><textarea id="hw-reason-other" rows="2" placeholder="ระบุเหตุผล..."></textarea></div>
+      </div>
     </div>
     <div class="sec">รายการ Hardware *</div>
     <div class="card full" style="margin-bottom:12px">
       <div class="row-hdr row-hw"><span>ชื่ออุปกรณ์</span><span>ราคา/ชิ้น (THB)</span><span>จำนวน</span><span></span></div>
-      <div id="hw-rows"><div class="row-hw"><input class="ri hw-name" type="text" placeholder="MacBook Pro 14"><input class="ri hw-price" type="number" placeholder="79000" min="0"><input class="ri hw-qty" type="number" placeholder="2" min="1"><button class="rm-btn" onclick="rmRow(this)">ลบ</button></div></div>
+      <div id="hw-rows"><div class="row-hw"><input class="ri hw-name" type="text" placeholder="MacBook Pro 14"><input class="ri hw-price" type="number" placeholder="79000" min="0" oninput="calcHWTotal()"><input class="ri hw-qty" type="number" placeholder="2" min="1" oninput="calcHWTotal()"><button class="rm-btn" onclick="rmRow(this);calcHWTotal()">ลบ</button></div></div>
       <button class="add-btn" onclick="addHwRow()">+ เพิ่มรายการ</button>
+      <div class="total-display" style="margin-top:8px">
+        <span>Total Amount</span>
+        <span class="total-val" id="hw-total-val">0 THB</span>
+      </div>
     </div>
     <div class="grid">
-      <div class="card"><label>จำนวนเงินเป็นตัวอักษร</label><input type="text" id="hw-amttext"></div>
-      <div class="card"><label>ผู้รับผิดชอบดูแลอุปกรณ์</label><input type="text" id="hw-custodian"></div>
+      <div class="card"><label>จำนวนเงินเป็นตัวอักษร</label><input type="text" id="hw-amttext" placeholder="เช่น หนึ่งแสนห้าหมื่นแปดพันบาทถ้วน"></div>
+      <div class="card"><label>ผู้รับผิดชอบดูแลอุปกรณ์</label><input type="text" id="hw-custodian" placeholder="เช่น นาย ปัณณ์ รัตน์วัฒนา"></div>
     </div>
     <div class="sec">ผู้ลงนาม</div>
     <div class="grid">
@@ -240,7 +278,7 @@ button.secondary:hover{background:#E6F1FB}
     </div>
   </div>
 
-  <!-- ENT -->
+  <!-- ===== ENT ===== -->
   <div class="tab-panel" id="tab-ent">
     <div class="sec">ข้อมูลทั่วไป</div>
     <div class="grid">
@@ -251,9 +289,13 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card full"><label>ชื่อลูกค้า / บริษัทที่เลี้ยง *</label><input type="text" id="ent-customer" placeholder="เช่น บริษัท ปตท. น้ำมันและการค้าปลีก จำกัด (มหาชน)"></div>
       <div class="card"><label>วันที่ / เวลา *</label><input type="text" id="ent-actdate" placeholder="เช่น 20 มกราคม 2569 เวลา 12.00 น."></div>
       <div class="card"><label>สถานที่ *</label><input type="text" id="ent-location" placeholder="เช่น ร้านอาหาร The River Café"></div>
-      <div class="card"><label>จำนวนผู้เข้าร่วม (คน) *</label><input type="number" id="ent-pax" placeholder="10" min="1"></div>
-      <div class="card"><label>วงเงินรวม (บาท) *</label><input type="number" id="ent-budget" placeholder="50000" min="0"></div>
+      <div class="card"><label>จำนวนผู้เข้าร่วม (คน) *</label><input type="number" id="ent-pax" placeholder="10" min="1" oninput="calcENTTotal()"></div>
+      <div class="card"><label>วงเงินรวม (บาท) *</label><input type="number" id="ent-budget" placeholder="50000" min="0" oninput="calcENTTotal()"></div>
       <div class="card"><label>จำนวนเงินเป็นตัวอักษร</label><input type="text" id="ent-amttext" placeholder="เช่น ห้าหมื่นบาทถ้วน"></div>
+    </div>
+    <div class="total-display" style="margin-bottom:12px">
+      <span>Total Amount</span>
+      <span class="total-val" id="ent-total-val">0 THB</span>
     </div>
     <div class="sec">ผู้ลงนาม</div>
     <div class="grid">
@@ -268,7 +310,7 @@ button.secondary:hover{background:#E6F1FB}
     </div>
   </div>
 
-  <!-- DEP -->
+  <!-- ===== DEP ===== -->
   <div class="tab-panel" id="tab-dep">
     <div class="sec">ข้อมูลทั่วไป</div>
     <div class="grid">
@@ -280,11 +322,19 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>วันที่ Deploy (End) *</label><input type="date" id="dep-end"></div>
       <div class="card"><label>สถานที่ Deploy *</label><input type="text" id="dep-location" placeholder="เช่น สำนักงานลูกค้า"></div>
       <div class="card"><label>รูปแบบ</label><select id="dep-mode"><option>Onsite</option><option>Online</option><option>Online / Onsite</option></select></div>
-      <div class="card full"><label>เหตุผล / รายละเอียดเพิ่มเติม</label><textarea id="dep-reason" rows="2" placeholder="เพื่อความละเอียดในการเบิกแยก Online / Onsite"></textarea></div>
+      <div class="card full">
+        <label>เหตุผล</label>
+        <select id="dep-reason-select" onchange="toggleOtherReason('dep')">
+          <option value="เพื่อความละเอียดในการเบิกแยก Online / Onsite">เพื่อความละเอียดในการเบิกแยก Online / Onsite</option>
+          <option value="เพื่อสนับสนุนการ Deployment ให้เป็นไปอย่างราบรื่นและมีประสิทธิภาพ">เพื่อสนับสนุนการ Deployment ให้เป็นไปอย่างราบรื่นและมีประสิทธิภาพ</option>
+          <option value="other">อื่นๆ (กรอกเอง)</option>
+        </select>
+        <div class="other-reason-wrap" id="dep-other-wrap"><textarea id="dep-reason-other" rows="2" placeholder="ระบุเหตุผล..."></textarea></div>
+      </div>
     </div>
     <div class="sec">รายชื่อพนักงานที่ Deploy *</div>
     <div class="card full" style="margin-bottom:12px">
-      <div id="dep-names"><div class="row-name"><span class="name-num">1.</span><input type="text" class="dep-name ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('dep-names','name-num')">ลบ</button></div></div>
+      <div id="dep-names"><div class="row-name"><span class="name-num">1.</span><input type="text" class="dep-name ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('dep-names')">ลบ</button></div></div>
       <button class="add-btn" onclick="addNameRow('dep-names','dep-name')">+ เพิ่มชื่อ</button>
     </div>
     <div class="sec">รายการค่าใช้จ่าย *</div>
@@ -293,14 +343,18 @@ button.secondary:hover{background:#E6F1FB}
       <div id="dep-rows">
         <div class="row-dep">
           <select class="ri dep-type"><option>ค่าอาหารมื้อหลัก</option><option>ค่าอาหารว่างตอนเช้า</option><option>ค่าอาหารว่างตอนบ่าย</option><option>ค่าขนมของว่าง</option><option>ค่าเดินทาง</option><option>ค่าที่พัก</option><option>อื่นๆ</option></select>
-          <input class="ri dep-price" type="number" placeholder="150" min="0">
+          <input class="ri dep-price" type="number" placeholder="150" min="0" oninput="calcDepRow(this);calcDEPTotal()">
           <input class="ri dep-date" type="date">
-          <input class="ri dep-qty" type="number" placeholder="5" min="1">
-          <input class="ri dep-amt" type="number" readonly style="background:#f0f0f0;color:#555">
-          <button class="rm-btn" onclick="rmRow(this)">ลบ</button>
+          <input class="ri dep-qty" type="number" placeholder="5" min="1" oninput="calcDepRow(this);calcDEPTotal()">
+          <input class="ri dep-amt" type="number" readonly style="background:#f5f5f3;color:#555">
+          <button class="rm-btn" onclick="rmRow(this);calcDEPTotal()">ลบ</button>
         </div>
       </div>
       <button class="add-btn" onclick="addDepRow()">+ เพิ่มรายการ</button>
+      <div class="total-display" style="margin-top:8px">
+        <span>Total Amount</span>
+        <span class="total-val" id="dep-total-val">0 THB</span>
+      </div>
     </div>
     <div class="grid">
       <div class="card"><label>จำนวนเงินเป็นตัวอักษร</label><input type="text" id="dep-amttext"></div>
@@ -325,17 +379,16 @@ button.secondary:hover{background:#E6F1FB}
 <div class="preview-wrap">
 <div class="memo-page">
   <div class="mp-hdr">
-    <img id="pdf-logo" class="mp-logo" src="Picture1.png" alt="Orbit Digital">
+    <!-- Fix #8: use Picture1.png -->
+    <img id="pdf-logo" class="mp-logo" src="Picture1.png" alt="Orbit Digital" onerror="this.style.display='none'">
+    <div class="mp-hdr-right">
       <div>เลขที่ <span class="num" id="pdf-docno"></span></div>
       <div>ลงวันที่<span id="pdf-date"></span></div>
     </div>
   </div>
-
   <div class="mp-title">บันทึกข้อความ</div>
-
   <div class="mp-field"><span class="mp-field-label">เรื่อง&nbsp;&nbsp;&nbsp;</span><span class="mp-field-value" id="pdf-subject"></span></div>
   <div class="mp-field" style="margin-bottom:14px"><span class="mp-field-label">เรียน&nbsp;&nbsp;&nbsp;</span><span class="mp-field-value" id="pdf-to"></span></div>
-
   <div class="mp-body" id="pdf-body"></div>
   <div id="pdf-table-wrap"></div>
   <div class="mp-note" id="pdf-note" style="display:none"></div>
@@ -344,6 +397,7 @@ button.secondary:hover{background:#E6F1FB}
     <table class="mp-table"><thead><tr id="pdf-acct-head"></tr></thead><tbody id="pdf-acct-body"></tbody></table>
   </div>
   <div class="mp-closing"><p id="pdf-closing"></p></div>
+  <!-- Fix #3: no border on approval -->
   <div class="mp-approval" id="pdf-approval"></div>
   <div class="mp-footer">
     <strong>บริษัท ออร์บิท ดิจิทัล จำกัด</strong><br>
@@ -358,8 +412,8 @@ button.secondary:hover{background:#E6F1FB}
 ['sl-date','sl-ratedate','sl-signdate','int-date','int-actdate','int-signdate',
  'hw-date','hw-signdate','ent-date','ent-signdate','dep-date','dep-start','dep-end','dep-signdate']
   .forEach(id=>{const el=document.getElementById(id);if(el)el.valueAsDate=new Date();});
-addAcctRow(); addDepRow();
-document.getElementById('dep-rows').addEventListener('input',calcDep);
+
+rebuildAcctTable();
 
 function switchTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -369,54 +423,130 @@ function switchTab(tab,btn){
   document.getElementById('pdf-template').style.display='none';
 }
 
+// Fix #1: toggle other reason
+function toggleOtherReason(prefix){
+  const sel=document.getElementById(prefix+'-reason-select');
+  const wrap=document.getElementById(prefix+'-other-wrap');
+  if(sel&&wrap) wrap.style.display=sel.value==='other'?'block':'none';
+}
+function getReason(prefix){
+  const sel=document.getElementById(prefix+'-reason-select');
+  if(!sel)return'';
+  if(sel.value==='other'){
+    return document.getElementById(prefix+'-reason-other')?.value.trim()||'';
+  }
+  return sel.value;
+}
+
+// Row helpers
 function rmRow(btn){
   const p=btn.parentElement,c=p.parentElement;
   if(c.querySelectorAll(':scope>div').length>1)p.remove();
 }
-function renum(containerId,cls){
-  document.querySelectorAll('#'+containerId+' .'+cls).forEach((el,i)=>el.textContent=(i+1)+'.');
+function renum(cid){
+  document.querySelectorAll('#'+cid+' .name-num').forEach((el,i)=>el.textContent=(i+1)+'.');
 }
-function addNameRow(containerId,inputClass){
-  const c=document.getElementById(containerId),n=c.querySelectorAll('.row-name').length+1;
+function addNameRow(cid,cls){
+  const c=document.getElementById(cid),n=c.querySelectorAll('.row-name').length+1;
   const d=document.createElement('div');d.className='row-name';
-  d.innerHTML=`<span class="name-num">${n}.</span><input type="text" class="${inputClass} ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('${containerId}','name-num')">ลบ</button>`;
+  d.innerHTML=`<span class="name-num">${n}.</span><input type="text" class="${cls} ri" placeholder="ชื่อ-นามสกุล ตำแหน่ง"><button class="rm-btn" onclick="rmRow(this);renum('${cid}')${cid==='int-names'?';calcINTTotal()':''}">ลบ</button>`;
   c.appendChild(d);
 }
 function addSwRow(){
   const d=document.createElement('div');d.className='row-sl';
-  d.innerHTML=`<input class="ri sw-name" type="text" placeholder="Software"><input class="ri sw-price" type="number" placeholder="ราคา/เดือน" min="0"><input class="ri sw-months" type="number" value="12" min="1"><input class="ri sw-qty" type="number" placeholder="จำนวน" min="1"><button class="rm-btn" onclick="rmRow(this)">ลบ</button>`;
+  d.innerHTML=`<input class="ri sw-name" type="text" placeholder="Software"><input class="ri sw-price" type="number" placeholder="ราคา/เดือน" min="0" oninput="calcSLTotal()"><input class="ri sw-months" type="number" value="12" min="1" oninput="calcSLTotal()"><input class="ri sw-qty" type="number" placeholder="จำนวน" min="1" oninput="calcSLTotal()"><button class="rm-btn" onclick="rmRow(this);calcSLTotal()">ลบ</button>`;
   document.getElementById('sl-rows').appendChild(d);
 }
 function addHwRow(){
   const d=document.createElement('div');d.className='row-hw';
-  d.innerHTML=`<input class="ri hw-name" type="text" placeholder="ชื่ออุปกรณ์"><input class="ri hw-price" type="number" placeholder="ราคา/ชิ้น" min="0"><input class="ri hw-qty" type="number" placeholder="จำนวน" min="1"><button class="rm-btn" onclick="rmRow(this)">ลบ</button>`;
+  d.innerHTML=`<input class="ri hw-name" type="text" placeholder="ชื่ออุปกรณ์"><input class="ri hw-price" type="number" placeholder="ราคา/ชิ้น" min="0" oninput="calcHWTotal()"><input class="ri hw-qty" type="number" placeholder="จำนวน" min="1" oninput="calcHWTotal()"><button class="rm-btn" onclick="rmRow(this);calcHWTotal()">ลบ</button>`;
   document.getElementById('hw-rows').appendChild(d);
 }
 function addDepRow(){
   const d=document.createElement('div');d.className='row-dep';
-  d.innerHTML=`<select class="ri dep-type"><option>ค่าอาหารมื้อหลัก</option><option>ค่าอาหารว่างตอนเช้า</option><option>ค่าอาหารว่างตอนบ่าย</option><option>ค่าขนมของว่าง</option><option>ค่าเดินทาง</option><option>ค่าที่พัก</option><option>อื่นๆ</option></select><input class="ri dep-price" type="number" placeholder="150" min="0"><input class="ri dep-date" type="date"><input class="ri dep-qty" type="number" placeholder="5" min="1"><input class="ri dep-amt" type="number" readonly style="background:#f0f0f0;color:#555"><button class="rm-btn" onclick="rmRow(this)">ลบ</button>`;
+  d.innerHTML=`<select class="ri dep-type"><option>ค่าอาหารมื้อหลัก</option><option>ค่าอาหารว่างตอนเช้า</option><option>ค่าอาหารว่างตอนบ่าย</option><option>ค่าขนมของว่าง</option><option>ค่าเดินทาง</option><option>ค่าที่พัก</option><option>อื่นๆ</option></select><input class="ri dep-price" type="number" placeholder="150" min="0" oninput="calcDepRow(this);calcDEPTotal()"><input class="ri dep-date" type="date"><input class="ri dep-qty" type="number" placeholder="5" min="1" oninput="calcDepRow(this);calcDEPTotal()"><input class="ri dep-amt" type="number" readonly style="background:#f5f5f3;color:#555"><button class="rm-btn" onclick="rmRow(this);calcDEPTotal()">ลบ</button>`;
   document.getElementById('dep-rows').appendChild(d);
 }
-function addAcctRow(){
-  const cols=document.querySelectorAll('.acct-col').length;
-  const d=document.createElement('div');
-  d.style.cssText=`display:grid;grid-template-columns:2fr repeat(${cols},1fr) auto;gap:6px;margin-bottom:6px;align-items:center`;
-  let h=`<input type="text" placeholder="email@orbitdigital.co.th" class="acct-email" style="font-size:12px;padding:5px 8px">`;
-  for(let i=0;i<cols;i++) h+=`<select class="acct-val" style="font-size:12px;padding:5px 6px"><option>-</option><option>✓</option></select>`;
-  h+=`<button class="rm-btn" onclick="this.parentElement.remove()">ลบ</button>`;
-  d.innerHTML=h; document.getElementById('sl-acct-rows').appendChild(d);
+
+// Fix #7: Account table with fixed alignment
+function rebuildAcctTable(){
+  const cols=Array.from(document.querySelectorAll('.acct-col')).map(c=>c.value.trim());
+  const activeCols=cols.filter(c=>c);
+  const head=document.getElementById('acct-fixed-head');
+  const body=document.getElementById('acct-fixed-body');
+  const colCount=activeCols.length||cols.length;
+  head.innerHTML=`<tr><th class="th-email" style="text-align:left;min-width:160px">Email</th>${Array.from({length:colCount},(_,i)=>`<th style="min-width:80px">${activeCols[i]||'Col '+(i+1)}</th>`).join('')}<th style="width:40px"></th></tr>`;
+  if(!body.children.length) addAcctTableRow();
 }
-function calcDep(){
+function addAcctTableRow(){
+  const cols=document.querySelectorAll('.acct-col').length;
+  const body=document.getElementById('acct-fixed-body');
+  const tr=document.createElement('tr');
+  let html=`<td><input type="text" class="acct-email" placeholder="email@orbitdigital.co.th" style="font-size:12px;padding:4px 6px;width:100%"></td>`;
+  for(let i=0;i<cols;i++) html+=`<td style="text-align:center"><select class="acct-val" style="font-size:12px;padding:3px 4px;width:100%"><option>-</option><option>✓</option></select></td>`;
+  html+=`<td class="td-rm"><button class="rm-btn" onclick="this.closest('tr').remove()">ลบ</button></td>`;
+  tr.innerHTML=html;
+  body.appendChild(tr);
+}
+
+// Fix #5: Auto-calculate totals
+function calcSLTotal(){
+  let total=0;
+  document.querySelectorAll('#sl-rows .row-sl').forEach(r=>{
+    const p=parseFloat(r.querySelector('.sw-price')?.value)||0;
+    const m=parseInt(r.querySelector('.sw-months')?.value)||0;
+    const q=parseInt(r.querySelector('.sw-qty')?.value)||0;
+    total+=p*m*q;
+  });
+  document.getElementById('sl-total-val').textContent=total.toLocaleString('th-TH')+' THB';
+}
+function calcINTTotal(){
+  const perPax=parseFloat(document.getElementById('int-perpax')?.value)||0;
+  const names=document.querySelectorAll('.int-name').length;
+  document.getElementById('int-total-val').textContent=(perPax*names).toLocaleString('th-TH')+' THB';
+}
+function calcHWTotal(){
+  let total=0;
+  document.querySelectorAll('#hw-rows .row-hw').forEach(r=>{
+    const p=parseFloat(r.querySelector('.hw-price')?.value)||0;
+    const q=parseInt(r.querySelector('.hw-qty')?.value)||0;
+    total+=p*q;
+  });
+  document.getElementById('hw-total-val').textContent=total.toLocaleString('th-TH')+' THB';
+}
+function calcENTTotal(){
+  const b=parseFloat(document.getElementById('ent-budget')?.value)||0;
+  document.getElementById('ent-total-val').textContent=b.toLocaleString('th-TH')+' THB';
+}
+function calcDepRow(input){
+  const row=input.closest('.row-dep');
+  const p=parseFloat(row.querySelector('.dep-price')?.value)||0;
+  const q=parseInt(row.querySelector('.dep-qty')?.value)||0;
+  const a=row.querySelector('.dep-amt');
+  if(a)a.value=p*q||'';
+}
+function calcDEPTotal(){
+  let total=0;
   document.querySelectorAll('#dep-rows .row-dep').forEach(r=>{
     const p=parseFloat(r.querySelector('.dep-price')?.value)||0;
     const q=parseInt(r.querySelector('.dep-qty')?.value)||0;
-    const a=r.querySelector('.dep-amt');if(a)a.value=p*q||'';
+    total+=p*q;
   });
+  document.getElementById('dep-total-val').textContent=total.toLocaleString('th-TH')+' THB';
 }
 
 const v=id=>document.getElementById(id)?.value.trim()||'';
 const fmtDate=s=>{if(!s)return'';return new Date(s).toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});};
 const fmtShort=s=>{if(!s)return'';const d=new Date(s);return`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()+543}`;};
+
+// Fix #4: File naming
+function getFileName(type,docno,date){
+  const d=date?new Date(date):new Date();
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateStr=d.getDate()+months[d.getMonth()]+(d.getFullYear());
+  const no=docno||'NoRef';
+  return`${type}_${no}_${dateStr}.pdf`;
+}
 
 function setHdr(docno,date,to,subject){
   document.getElementById('pdf-docno').textContent=docno||'-';
@@ -444,7 +574,7 @@ function setApproval(pm,pmRole,pmDate,approver,approverRole,toTitle){
       <div class="mp-sig-date">${pmDate}</div>
     </div>`;
 }
-function clearOptional(){
+function clearOpt(){
   document.getElementById('pdf-note').style.display='none';
   document.getElementById('pdf-acct-wrap').style.display='none';
 }
@@ -462,7 +592,7 @@ const FILL={
     const d=v('sl-date')?new Date(v('sl-date')):new Date();
     const sM=d.toLocaleDateString('th-TH',{month:'long',year:'numeric'});
     const eM=new Date(d.getFullYear(),11,1).toLocaleDateString('th-TH',{month:'long',year:'numeric'});
-    const reason=v('sl-reason')||'เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพ';
+    const reason=getReason('sl')||'เพื่อพัฒนาโครงการและช่วยทีมพัฒนาสามารถทำงานได้อย่างมีประสิทธิภาพ';
     setHdr(v('sl-docno'),v('sl-date'),v('sl-to'),`ขออนุมัติงบประมาณเพื่อการจัดซื้อโปรแกรมสำหรับการพัฒนาในโครงการ ${project} โดยชำระเงินผ่านบัตรเครดิตบริษัท Orbit Digital 0321`);
     document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วยพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องใช้งานโปรแกรม${lics.map(l=>` ${l.name}`).join(' และ')} ${reason} จึงขออนุมัติงบประมาณเพื่อต่ออายุการใช้งานโปรแกรม ตามรายละเอียดดังต่อไปนี้</p><ol class="mp-list">${lics.map(l=>`<li>โปรแกรม ${l.name} License ราคา ${l.price.toLocaleString('th-TH')} บาท/เดือน (ช่วงเดือน${sM} - ${eM})</li>`).join('')}</ol>`;
     let total=0;
@@ -471,7 +601,10 @@ const FILL={
     const ne=document.getElementById('pdf-note');ne.style.display='block';
     ne.innerHTML=`* <u><strong>หมายเหตุ</strong></u> : เรทราคาโปรแกรมดังกล่าวแปลงเรทเงินตราจากหน่วย USD เป็น THB ณ วันที่<u>${fmtDate(v('sl-ratedate'))}</u>`;
     const aCols=Array.from(document.querySelectorAll('.acct-col')).map(c=>c.value.trim()).filter(c=>c);
-    const aRows=Array.from(document.getElementById('sl-acct-rows').querySelectorAll('div')).map(r=>({email:r.querySelector('.acct-email')?.value.trim()||'',vals:Array.from(r.querySelectorAll('.acct-val')).map(s=>s.value)})).filter(r=>r.email);
+    const aRows=Array.from(document.getElementById('acct-fixed-body').querySelectorAll('tr')).map(tr=>({
+      email:tr.querySelector('.acct-email')?.value.trim()||'',
+      vals:Array.from(tr.querySelectorAll('.acct-val')).map(s=>s.value)
+    })).filter(r=>r.email);
     if(aCols.length&&aRows.length){
       document.getElementById('pdf-acct-wrap').style.display='block';
       document.getElementById('pdf-acct-head').innerHTML=`<th>No</th><th>Account</th>${aCols.map(c=>`<th>${c}</th>`).join('')}`;
@@ -487,9 +620,10 @@ const FILL={
     const names=Array.from(document.querySelectorAll('.int-name')).map(i=>i.value.trim()).filter(n=>n);
     if(!project||!pm||!names.length){alert('กรุณากรอกชื่อโปรเจกต์, ผู้จัดการโครงการ และรายชื่อผู้เข้าร่วม');return false;}
     const perPax=parseFloat(v('int-perpax'))||1500,total=perPax*names.length;
-    clearOptional();
+    clearOpt();
+    const reason=getReason('int');
     setHdr(v('int-docno'),v('int-date'),v('int-to'),`ขออนุมัติงบประมาณจัดกิจกรรมของทีม  ${project}`);
-    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วย ทีม ${project} บริษัท ออร์บิท ดิจิทัล จำกัด ได้วางแผนจัดทำกิจกรรมทีมประจำ${v('int-quarter')||'ไตรมาส'} ร่วมกันภายในแผนก${v('int-reason')?'เพื่อ'+v('int-reason'):''} โดยกำหนดงบประมาณค่าใช้จ่ายเพื่อทำกิจกรรมทีม ในวันที่ ${fmtDate(v('int-actdate'))} วงเงินไม่เกินท่านละ ${perPax.toLocaleString('th-TH')} บาท (${v('int-amttext')||perPax.toLocaleString('th-TH')+' บาทถ้วน'}) สำหรับรายชื่อผู้เข้าร่วมกิจกรรม จำนวนทั้งหมด ${names.length} คน ได้แก่</p>`;
+    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วย ทีม ${project} บริษัท ออร์บิท ดิจิทัล จำกัด ได้วางแผนจัดทำกิจกรรมทีมประจำ${v('int-quarter')||'ไตรมาส'} ร่วมกันภายในแผนก${reason?'เพื่อ'+reason:''} โดยกำหนดงบประมาณค่าใช้จ่ายเพื่อทำกิจกรรมทีม ในวันที่ ${fmtDate(v('int-actdate'))} วงเงินไม่เกินท่านละ ${perPax.toLocaleString('th-TH')} บาท (${v('int-amttext')||perPax.toLocaleString('th-TH')+' บาทถ้วน'}) สำหรับรายชื่อผู้เข้าร่วมกิจกรรม จำนวนทั้งหมด ${names.length} คน ได้แก่</p>`;
     document.getElementById('pdf-table-wrap').innerHTML=`<table class="mp-table"><thead><tr><th style="width:8%">ลำดับ</th><th>รายชื่อผู้เข้าร่วมกิจกรรม</th></tr></thead><tbody>${names.map((n,i)=>`<tr><td>${i+1}</td><td class="tdl">${n}</td></tr>`).join('')}</tbody></table>`;
     document.getElementById('pdf-closing').textContent=`ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่ากิจกรรมทีม ${project} เพื่อใช้จัดกิจกรรมดังกล่าว เป็นวงเงินจำนวนไม่เกิน ${total.toLocaleString('th-TH')} บาท${v('int-amttext')?' ('+v('int-amttext')+')':''}`;
     setApproval(pm,'ผู้จัดการโครงการ',fmtShort(v('int-signdate')),v('int-dir'),v('int-dirtitle'),v('int-to'));
@@ -499,13 +633,14 @@ const FILL={
     const project=v('hw-project'),pm=v('hw-pm');
     const items=Array.from(document.querySelectorAll('#hw-rows .row-hw')).map(r=>({name:r.querySelector('.hw-name').value.trim(),price:parseFloat(r.querySelector('.hw-price').value)||0,qty:parseInt(r.querySelector('.hw-qty').value)||0})).filter(r=>r.name);
     if(!project||!pm||!items.length){alert('กรุณากรอกชื่อโปรเจกต์, ผู้จัดการโครงการ และรายการ Hardware');return false;}
-    clearOptional();
+    clearOpt();
+    const reason=getReason('hw')||'เพื่อใช้ในการพัฒนาและทดสอบระบบของโครงการ';
     setHdr(v('hw-docno'),v('hw-date'),v('hw-to'),`ขออนุมัติงบประมาณเพื่อจัดซื้อ Hardware สำหรับโครงการ ${project}`);
-    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วยโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องจัดซื้ออุปกรณ์ Hardware ${v('hw-reason')||'เพื่อใช้ในการพัฒนาและทดสอบระบบของโครงการ'} จึงขออนุมัติงบประมาณเพื่อดำเนินการจัดซื้ออุปกรณ์ตามรายละเอียดดังต่อไปนี้</p>`;
+    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วยโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องจัดซื้ออุปกรณ์ Hardware ${reason} จึงขออนุมัติงบประมาณเพื่อดำเนินการจัดซื้ออุปกรณ์ตามรายละเอียดดังต่อไปนี้</p>`;
     let total=0;
     const rows=items.map((it,i)=>{const a=it.price*it.qty;total+=a;return`<tr><td>${i+1}</td><td class="tdl">${it.name}</td><td>${it.price.toLocaleString('th-TH')}</td><td>${it.qty}</td><td>${a.toLocaleString('th-TH')}</td></tr>`;}).join('');
     document.getElementById('pdf-table-wrap').innerHTML=`<table class="mp-table"><thead><tr><th>No</th><th>รายการ</th><th>ราคา/ชิ้น (THB)</th><th>จำนวน (ชิ้น)</th><th>Amount (THB)</th></tr></thead><tbody>${rows}</tbody><tfoot><tr class="tr-total"><td colspan="4" style="text-align:right;font-weight:700">Total Amount</td><td>${total.toLocaleString('th-TH')}</td></tr></tfoot></table>`;
-    document.getElementById('pdf-closing').textContent=`ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายจัดซื้ออุปกรณ์ Hardware ดังกล่าว รวมเป็นจำนวนเงินไม่เกิน ${total.toLocaleString('th-TH')} บาท${v('hw-amttext')?' ('+v('hw-amttext')+')':''}${v('hw-custodian')?' โดยมอบหมายให้ '+v('hw-custodian')+' เป็นผู้รับผิดชอบดูแลอุปกรณ์':''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน ซึ่งให้อำนาจแก่${v('hw-to')}ในวงเงินไม่เกิน 2,000,000 บาท`;
+    document.getElementById('pdf-closing').textContent=`ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายจัดซื้ออุปกรณ์ Hardware ดังกล่าว รวมเป็นจำนวนเงินไม่เกิน ${total.toLocaleString('th-TH')} บาท${v('hw-amttext')?' ('+v('hw-amttext')+')':''}${v('hw-custodian')?' โดยมอบหมายให้ '+v('hw-custodian')+' เป็นผู้รับผิดชอบดูแลอุปกรณ์':''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 ซึ่งให้อำนาจแก่${v('hw-to')}ในวงเงินไม่เกิน 2,000,000 บาท`;
     setApproval(pm,'ผู้จัดการโครงการ',fmtShort(v('hw-signdate')),v('hw-ceo'),v('hw-ceotitle'),v('hw-to'));
     return true;
   },
@@ -513,7 +648,7 @@ const FILL={
     const project=v('ent-project'),pm=v('ent-pm'),customer=v('ent-customer');
     const budget=parseFloat(v('ent-budget'))||0;
     if(!project||!pm||!customer){alert('กรุณากรอกชื่อโปรเจกต์, ผู้จัดการโครงการ และชื่อลูกค้า');return false;}
-    clearOptional();
+    clearOpt();
     setHdr(v('ent-docno'),v('ent-date'),v('ent-to'),`ขออนุมัติงบประมาณค่าใช้จ่ายเลี้ยงรับรองลูกค้าบริษัท ${customer}`);
     document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">สืบเนื่องจากพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด ได้วางแผนจัดงานบริษัทเลี้ยงรับรองลูกค้าเพื่อขอบคุณ ซึ่งจะจัดวันที่ ${v('ent-actdate')||'-'} สถานที่จัดคือ ${v('ent-location')||'-'} จำนวนผู้เข้าร่วมโดยประมาณ ${v('ent-pax')||'-'} คน โดยกำหนดงบประมาณสำหรับค่าใช้จ่ายงานเลี้ยงรับรองลูกค้าเป็นจำนวนเงินไม่เกิน ${budget.toLocaleString('th-TH')} บาท</p>`;
     document.getElementById('pdf-table-wrap').innerHTML='';
@@ -531,28 +666,39 @@ const FILL={
       qty:parseInt(r.querySelector('.dep-qty').value)||0
     })).filter(r=>r.price>0);
     if(!project||!pm||!names.length){alert('กรุณากรอกชื่อโปรเจกต์, ผู้จัดการโครงการ และรายชื่อพนักงาน');return false;}
-    clearOptional();
+    clearOpt();
     const sDate=fmtDate(v('dep-start')),eDate=fmtDate(v('dep-end'));
+    const reason=getReason('dep');
     setHdr(v('dep-docno'),v('dep-date'),v('dep-to'),`ขออนุมัติงบประมาณค่าใช้จ่ายสำหรับพนักงานที่ปฏิบัติการ Deployment ของ ${project} ในวันที่ ${sDate}${eDate&&eDate!==sDate?' – '+eDate:''}`);
-    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วย พนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด วางแผนดำเนินการ Deployment ที่ ${v('dep-location')||'-'} ใน ${sDate}${eDate&&eDate!==sDate?' – '+eDate:''} จึงขออนุมัติงบประมาณค่าใช้จ่ายสำหรับพนักงานที่อยู่ปฏิบัติงานล่วงเวลาจำนวน ${names.length} คนที่ได้รับมอบหมายให้ไปปฏิบัติงานดังกล่าว (${v('dep-mode')}) ${v('dep-reason')||''} โดยมีรายละเอียดดังต่อไปนี้</p>`;
+    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วย พนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด วางแผนดำเนินการ Deployment ที่ ${v('dep-location')||'-'} ใน ${sDate}${eDate&&eDate!==sDate?' – '+eDate:''} จึงขออนุมัติงบประมาณค่าใช้จ่ายสำหรับพนักงานที่อยู่ปฏิบัติงานล่วงเวลาจำนวน ${names.length} คน (${v('dep-mode')}) ${reason} โดยมีรายละเอียดดังต่อไปนี้</p>`;
     let total=0;
     const expRows=expenses.map((e,i)=>{const a=e.price*e.qty;total+=a;return`<tr><td>${i+1}</td><td class="tdl">${e.type}</td><td>${fmtDate(e.date)||'-'}</td><td>${e.price.toLocaleString('th-TH')}</td><td>${e.qty}</td><td>${a.toLocaleString('th-TH')}</td></tr>`;}).join('');
     const nameRows=names.map((n,i)=>`<tr><td>${i+1}</td><td class="tdl">${n}</td></tr>`).join('');
-    document.getElementById('pdf-table-wrap').innerHTML=`
-      <table class="mp-table"><thead><tr><th>No</th><th>ประเภทค่าใช้จ่าย</th><th>วันที่</th><th>ราคา/คน (THB)</th><th>จำนวนคน</th><th>รวม (THB)</th></tr></thead><tbody>${expRows}</tbody><tfoot><tr class="tr-total"><td colspan="5" style="text-align:right;font-weight:700">ยอดรวมทั้งหมด</td><td>${total.toLocaleString('th-TH')}</td></tr></tfoot></table>
-      <br><table class="mp-table"><thead><tr><th style="width:8%">ลำดับ</th><th>รายชื่อพนักงาน</th></tr></thead><tbody>${nameRows}</tbody></table>`;
-    document.getElementById('pdf-closing').textContent=`จึงขอความอนุเคราะห์อนุมัติการจัดซื้อสำหรับรายการจัดซื้อข้างต้น ในวงเงิน ${total.toLocaleString('th-TH')} บาท${v('dep-amttext')?' ('+v('dep-amttext')+')':''} ถ้าอ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าสวัสดิการพนักงาน ซึ่งให้อำนาจผู้อำนวยการในการอนุมัติการชำระเงินในวงเงินไม่เกิน ${v('dep-authlimit')||'500,000'} บาท`;
+    document.getElementById('pdf-table-wrap').innerHTML=`<table class="mp-table"><thead><tr><th>No</th><th>ประเภทค่าใช้จ่าย</th><th>วันที่</th><th>ราคา/คน (THB)</th><th>จำนวนคน</th><th>รวม (THB)</th></tr></thead><tbody>${expRows}</tbody><tfoot><tr class="tr-total"><td colspan="5" style="text-align:right;font-weight:700">ยอดรวมทั้งหมด</td><td>${total.toLocaleString('th-TH')}</td></tr></tfoot></table><br><table class="mp-table"><thead><tr><th style="width:8%">ลำดับ</th><th>รายชื่อพนักงาน</th></tr></thead><tbody>${nameRows}</tbody></table>`;
+    document.getElementById('pdf-closing').textContent=`จึงขอความอนุเคราะห์อนุมัติการจัดซื้อสำหรับรายการข้างต้น ในวงเงิน ${total.toLocaleString('th-TH')} บาท${v('dep-amttext')?' ('+v('dep-amttext')+')':''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าสวัสดิการพนักงาน ซึ่งให้อำนาจผู้อำนวยการในการอนุมัติการชำระเงินในวงเงินไม่เกิน ${v('dep-authlimit')||'500,000'} บาท`;
     setApproval(pm,'ผู้จัดการโครงการ',fmtShort(v('dep-signdate')),v('dep-dir'),v('dep-dirtitle'),v('dep-to'));
     return true;
   }
 };
 
+const TAB_PREFIX={sl:'SL',int:'INT',hw:'HW',ent:'ENT',dep:'DEP'};
+const TAB_DATE={sl:'sl-date',int:'int-date',hw:'hw-date',ent:'ent-date',dep:'dep-date'};
+const TAB_DOCNO={sl:'sl-docno',int:'int-docno',hw:'hw-docno',ent:'ent-docno',dep:'dep-docno'};
+
 function go(tab,print){
   if(!FILL[tab]())return;
   const t=document.getElementById('pdf-template');
   t.style.display='block';
-  if(print) setTimeout(()=>window.print(),350);
-  else t.scrollIntoView({behavior:'smooth'});
+  if(print){
+    // Fix #4: set document title for PDF filename
+    const type=TAB_PREFIX[tab];
+    const docno=v(TAB_DOCNO[tab]);
+    const date=v(TAB_DATE[tab]);
+    document.title=getFileName(type,docno,date).replace('.pdf','');
+    setTimeout(()=>{window.print();setTimeout(()=>{document.title='PMO Memo Generator — Orbit Digital';},1000);},350);
+  } else {
+    t.scrollIntoView({behavior:'smooth'});
+  }
 }
 </script>
 </body>
