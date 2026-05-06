@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PMO Memo Generator — Orbit Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
 <style>
   @media print {
@@ -209,6 +207,24 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>ชื่อผู้อนุมัติ *</label><input type="text" id="sl-ceo" placeholder="กรุณากรอกชื่อ-นามสกุล"></div>
       <div class="card"><label>ตำแหน่งผู้อนุมัติ *</label><input type="text" id="sl-ceotitle" value="ประธานเจ้าหน้าที่บริหาร"></div>
       <div class="card"><label>วันที่ลงนาม *</label><input type="date" id="sl-ceo-signdate"></div>
+    </div>
+    <!-- Fix #7: Account table fixed alignment -->
+    <div class="sec">ตาราง Account <span style="font-weight:400;color:#aaa;font-size:11px">(optional)</span></div>
+    <div class="card full" style="margin-bottom:12px">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">
+        <input type="text" placeholder="Col 1 เช่น GitHub" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 2" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 3" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 4" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+        <input type="text" placeholder="Col 5" class="acct-col" style="font-size:12px;padding:5px 8px" oninput="rebuildAcctTable()">
+      </div>
+      <div class="acct-table-wrap">
+        <table class="acct-fixed-table" id="acct-fixed-table">
+          <thead id="acct-fixed-head"></thead>
+          <tbody id="acct-fixed-body"></tbody>
+        </table>
+      </div>
+      <button class="add-btn" style="margin-top:8px" onclick="addAcctTableRow()">+ เพิ่ม Account</button>
     </div>
     <div class="btn-row">
       <button class="secondary" onclick="go('sl',false)">Preview</button>
@@ -619,9 +635,9 @@ function setHdr(docno,date,to,subject){
   if(ph_date)ph_date.textContent=fmtDate(date);
 }
 function setApproval(pm,pmRole,pmDate,approver,approverRole,approverDate,toTitle){
-  const apprEl=document.getElementById('pdf-approval');
-  if(!apprEl)return;
-  apprEl.innerHTML=`
+  const _appr=document.getElementById('pdf-approval');
+  if(!_appr)return;
+  _appr.innerHTML=`
     <div class="mp-appr-cell">
       <div class="mp-appr-head">เรียน${toTitle} เพื่อโปรดพิจารณาอนุมัติดำเนินการ</div>
       <div class="mp-appr-opt">o เห็นชอบ, เพื่อโปรดพิจารณาอนุมัติ</div>
@@ -801,124 +817,61 @@ const TAB_PREFIX={sl:'SL',int:'INT',hw:'HW',ent:'ENT',dep:'DEP'};
 const TAB_DATE={sl:'sl-date',int:'int-date',hw:'hw-date',ent:'ent-date',dep:'dep-date'};
 const TAB_DOCNO={sl:'sl-docno',int:'int-docno',hw:'hw-docno',ent:'ent-docno',dep:'dep-docno'};
 
-async function go(tab,doPrint){
+async function go(tab,print){
   if(!FILL[tab]())return;
   const t=document.getElementById('pdf-template');
   t.style.display='block';
-  if(doPrint){
+  if(print){
     const type=TAB_PREFIX[tab];
     const docno=v(TAB_DOCNO[tab]);
     const date=v(TAB_DATE[tab]);
     const filename=getFileName(type,docno,date);
+    // Get memo content HTML
+    const memoPage=document.querySelector('.memo-page');
+    if(!memoPage){return;}
+    // Convert logo to base64
+    let logoBase64='';
+    try{
+      const logoImg=document.getElementById('pdf-logo');
+      if(logoImg&&logoImg.src&&!logoImg.src.startsWith('data:')){
+        const resp=await fetch(logoImg.src);
+        const blob=await resp.blob();
+        logoBase64=await new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(blob);});
+      } else if(logoImg&&logoImg.src.startsWith('data:')){
+        logoBase64=logoImg.src;
+      }
+    }catch(e){console.warn('Logo fetch failed',e);}
+    // Show loading
     const btn=event?.target;
     const origText=btn?.textContent||'';
-    if(btn){btn.textContent='⏳ กำลัง Generate...';btn.disabled=true;}
+    if(btn)btn.textContent='กำลัง Generate...';
     try{
-      await generatePDFClient(filename);
+      const res=await fetch('/api/generate-pdf',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          html:memoPage.innerHTML,
+          filename:filename,
+          logoBase64:logoBase64
+        })
+      });
+      if(!res.ok){throw new Error('API error '+res.status);}
+      const blob=await res.blob();
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;a.download=filename;a.click();
+      URL.revokeObjectURL(url);
     }catch(err){
       console.error(err);
-      // Fallback to browser print
+      alert('ไม่สามารถ generate PDF ได้ กำลังใช้ browser print แทนค่ะ');
       document.title=filename.replace('.pdf','');
-      setTimeout(()=>{window.print();setTimeout(()=>{document.title='PMO Memo Generator — Orbit Digital';},1000);},300);
+      setTimeout(()=>{window.print();setTimeout(()=>{document.title='PMO Memo Generator — Orbit Digital';},1000);},350);
     }finally{
-      if(btn){btn.textContent=origText;btn.disabled=false;}
+      if(btn)btn.textContent=origText;
     }
   } else {
     t.scrollIntoView({behavior:'smooth'});
   }
-}
-
-async function generatePDFClient(filename){
-  const {jsPDF}=window.jspdf;
-  const memoPage=document.querySelector('.memo-page');
-  if(!memoPage)throw new Error('No memo page');
-
-  // Temporarily style for capture
-  const origDisplay=memoPage.style.display;
-  memoPage.style.width='794px';
-  memoPage.style.background='#fff';
-
-  // A4 dimensions in mm
-  const A4_W=210, A4_H=297;
-  const MARGIN_TOP=18, MARGIN_SIDE=18, MARGIN_BOT=18;
-  const contentW=A4_W-MARGIN_SIDE*2;
-
-  // Header height in mm
-  const HDR_H=14, FTR_H=12;
-  const contentAreaH=A4_H-MARGIN_TOP-MARGIN_BOT-HDR_H-FTR_H;
-
-  // Capture memo page
-  const canvas=await html2canvas(memoPage,{
-    scale:2,
-    useCORS:true,
-    allowTaint:true,
-    backgroundColor:'#ffffff',
-    logging:false,
-    width:794
-  });
-
-  memoPage.style.width=origDisplay;
-
-  const imgData=canvas.toDataURL('image/jpeg',0.95);
-  const imgW=canvas.width;
-  const imgH=canvas.height;
-
-  // Scale factor: contentW mm = imgW px
-  const pxPerMm=imgW/contentW;
-  const pageContentPx=contentAreaH*pxPerMm;
-  const totalPages=Math.ceil(imgH/pageContentPx);
-
-  const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-
-  // Load logo
-  let logoData=null;
-  try{
-    const logoImg=document.getElementById('pdf-logo');
-    if(logoImg&&logoImg.complete){
-      const lc=document.createElement('canvas');
-      lc.width=logoImg.naturalWidth||150;
-      lc.height=logoImg.naturalHeight||60;
-      const lctx=lc.getContext('2d');
-      lctx.drawImage(logoImg,0,0);
-      logoData=lc.toDataURL('image/png');
-    }
-  }catch(e){console.warn('Logo error',e);}
-
-  for(let i=0;i<totalPages;i++){
-    if(i>0)pdf.addPage();
-
-    // Draw header
-    pdf.setDrawColor(170,170,170);
-    pdf.setLineWidth(0.3);
-    pdf.line(MARGIN_SIDE,MARGIN_TOP+HDR_H-1,A4_W-MARGIN_SIDE,MARGIN_TOP+HDR_H-1);
-    if(logoData){
-      try{pdf.addImage(logoData,'PNG',MARGIN_SIDE,MARGIN_TOP+1,28,10);}catch(e){}
-    }
-    pdf.setFontSize(8);pdf.setTextColor(100);
-    pdf.text('บริษัท ออร์บิท ดิจิทัล จำกัด',A4_W-MARGIN_SIDE,MARGIN_TOP+8,{align:'right'});
-
-    // Draw content slice
-    const srcY=i*pageContentPx;
-    const sliceH=Math.min(pageContentPx,imgH-srcY);
-    const sliceCanvas=document.createElement('canvas');
-    sliceCanvas.width=imgW;
-    sliceCanvas.height=sliceH;
-    sliceCanvas.getContext('2d').drawImage(canvas,0,srcY,imgW,sliceH,0,0,imgW,sliceH);
-    const sliceData=sliceCanvas.toDataURL('image/jpeg',0.95);
-    const sliceHmm=sliceH/pxPerMm;
-    const contentY=MARGIN_TOP+HDR_H;
-    pdf.addImage(sliceData,'JPEG',MARGIN_SIDE,contentY,contentW,sliceHmm);
-
-    // Draw footer
-    const ftrY=A4_H-MARGIN_BOT-FTR_H+1;
-    pdf.line(MARGIN_SIDE,ftrY,A4_W-MARGIN_SIDE,ftrY);
-    pdf.setFontSize(8);pdf.setTextColor(0);pdf.setFont(undefined,'bold');
-    pdf.text('บริษัท ออร์บิท ดิจิทัล จำกัด',A4_W/2,ftrY+4,{align:'center'});
-    pdf.setFont(undefined,'normal');pdf.setTextColor(100);pdf.setFontSize(7.5);
-    pdf.text('51 ถนนนราธิวาสราชนครินทร์ แขวงสีลม เขตบางรัก กรุงเทพมหานคร',A4_W/2,ftrY+8,{align:'center'});
-  }
-
-  pdf.save(filename);
 }
 </script>
 </body>
