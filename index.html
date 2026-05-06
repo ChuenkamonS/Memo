@@ -4,210 +4,308 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PMO Memo Generator — Software License</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Sarabun', sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
-  .container { max-width: 680px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
-  .subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-  .card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; }
-  .card.full { grid-column: 1 / -1; }
-  label { font-size: 12px; color: #888; display: block; margin-bottom: 6px; }
-  input, select, textarea {
-    width: 100%; font-family: 'Sarabun', sans-serif; font-size: 14px;
-    border: 0.5px solid #ddd; border-radius: 8px; padding: 8px 10px;
-    outline: none; background: #fafafa; color: #1a1a1a; transition: border 0.2s;
-  }
-  input:focus, select:focus, textarea:focus { border-color: #888; background: #fff; }
-  textarea { resize: vertical; }
-  button.primary {
-    width: 100%; padding: 12px; font-size: 15px; font-weight: 500;
-    font-family: 'Sarabun', sans-serif; background: #1a1a1a; color: #fff;
-    border: none; border-radius: 10px; cursor: pointer; margin-top: 4px; transition: opacity 0.2s;
-  }
-  button.primary:hover { opacity: 0.85; }
-  button.secondary {
-    flex: 1; padding: 9px; font-size: 13px; font-weight: 500;
-    font-family: 'Sarabun', sans-serif; background: #fff; color: #1a1a1a;
-    border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; transition: background 0.2s;
-  }
-  button.secondary:hover { background: #f5f5f3; }
-  .output { display: none; margin-top: 1.5rem; }
-  .output-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; margin-bottom: 12px; }
-  .output-label { font-size: 11px; font-weight: 500; color: #aaa; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
-  .output-text { font-size: 14px; line-height: 1.9; color: #1a1a1a; white-space: pre-wrap; }
-  .btn-row { display: flex; gap: 8px; }
-  .badge { display: inline-block; font-size: 11px; background: #f0f0ee; color: #555; border-radius: 6px; padding: 2px 8px; margin-bottom: 1rem; }
-  @media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
+.container { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1rem 1.25rem; }
+.card.full { grid-column: 1 / -1; }
+label { font-size: 12px; color: #888; display: block; margin-bottom: 6px; }
+input, select, textarea { width: 100%; font-family: 'Sarabun', sans-serif; font-size: 14px; border: 0.5px solid #ddd; border-radius: 8px; padding: 8px 10px; outline: none; background: #fafafa; color: #1a1a1a; transition: border 0.2s; }
+input:focus, select:focus, textarea:focus { border-color: #888; background: #fff; }
+textarea { resize: vertical; }
+.lang-toggle { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+.lang-btn { flex: 1; padding: 8px; font-size: 13px; font-weight: 500; font-family: 'Sarabun', sans-serif; background: #fff; color: #888; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.lang-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+button.primary { width: 100%; padding: 12px; font-size: 15px; font-weight: 500; font-family: 'Sarabun', sans-serif; background: #1a1a1a; color: #fff; border: none; border-radius: 10px; cursor: pointer; margin-top: 4px; transition: opacity 0.2s; }
+button.primary:hover { opacity: 0.85; }
+button.secondary { flex: 1; padding: 9px; font-size: 13px; font-weight: 500; font-family: 'Sarabun', sans-serif; background: #fff; color: #1a1a1a; border: 0.5px solid #ddd; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+button.secondary:hover { background: #f5f5f3; }
+.btn-row { display: flex; gap: 8px; margin-top: 12px; }
+.badge { display: inline-block; font-size: 11px; background: #f0f0ee; color: #555; border-radius: 6px; padding: 2px 8px; margin-bottom: 1rem; }
+.logo-preview { width: 80px; height: 80px; object-fit: contain; border: 0.5px solid #eee; border-radius: 8px; margin-top: 8px; display: none; }
+@media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+
+/* PDF preview area */
+#pdf-template { display: none; margin-top: 2rem; background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 40px 50px; }
+
+/* Print styles */
+@media print {
+  body > .container { display: none !important; }
+  #pdf-template { display: block !important; border: none !important; border-radius: 0 !important; margin: 0 !important; padding: 40px 50px !important; }
+}
+
+.pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #1a1a1a; padding-bottom: 16px; margin-bottom: 24px; }
+.pdf-logo { max-height: 60px; max-width: 160px; object-fit: contain; }
+.pdf-company { font-size: 11px; color: #666; text-align: right; line-height: 1.6; }
+.pdf-title { font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 6px; }
+.pdf-subtitle { font-size: 13px; color: #666; text-align: center; margin-bottom: 24px; }
+.pdf-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-bottom: 24px; background: #f9f9f9; padding: 16px; border-radius: 8px; border: 0.5px solid #eee; }
+.pdf-meta-item { font-size: 13px; }
+.pdf-meta-label { color: #666; font-size: 11px; margin-bottom: 2px; }
+.pdf-meta-value { font-weight: 500; }
+.pdf-section { margin-bottom: 20px; }
+.pdf-section-title { font-size: 13px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 0.5px solid #eee; padding-bottom: 6px; margin-bottom: 12px; }
+.pdf-detail-row { display: flex; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+.pdf-detail-label { color: #666; min-width: 160px; }
+.pdf-detail-value { font-weight: 500; flex: 1; }
+.pdf-reason-box { background: #f9f9f9; border: 0.5px solid #eee; border-radius: 8px; padding: 14px; font-size: 13px; line-height: 1.7; }
+.pdf-signature-section { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.pdf-sig-box { border-top: 0.5px solid #1a1a1a; padding-top: 8px; }
+.pdf-sig-label { font-size: 11px; color: #666; }
+.pdf-sig-name { font-size: 13px; margin-top: 4px; font-weight: 500; }
+.pdf-sig-date { font-size: 11px; color: #888; margin-top: 2px; }
+.pdf-sig-space { height: 48px; }
+.pdf-footer { margin-top: 40px; border-top: 0.5px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; font-size: 10px; color: #aaa; }
+.pdf-ref { font-size: 10px; color: #aaa; text-align: right; margin-top: 8px; }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
 
+<div class="container">
   <div class="badge">PMO Internal Tool</div>
-  <h1>สร้าง Memo ขอ Software License</h1>
-  <p class="subtitle">กรอกข้อมูลด้านล่าง แล้วระบบจะสร้าง memo และ draft email ให้อัตโนมัติ</p>
+  <h1>Software License Request Memo</h1>
+  <p class="subtitle">กรอกข้อมูลด้านล่าง แล้วกด Generate เพื่อดาวน์โหลด PDF</p>
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('th', this)">🇹🇭 ภาษาไทย</button>
+    <button class="lang-btn" onclick="setLang('en', this)">🇬🇧 English</button>
+    <button class="lang-btn" onclick="setLang('both', this)">🇹🇭+🇬🇧 ทั้งสองภาษา</button>
+  </div>
 
   <div class="grid">
-
+    <div class="card full">
+      <label>โลโก้บริษัท / Company Logo</label>
+      <input type="file" id="logo-input" accept="image/*" onchange="previewLogo(this)">
+      <img id="logo-preview" class="logo-preview" alt="logo preview">
+    </div>
     <div class="card">
-      <label>ชื่อผู้ขอ *</label>
+      <label>ชื่อผู้ขอ / Requester Name *</label>
       <input type="text" id="requester" placeholder="เช่น ชื่น สันมณีนิตย์">
     </div>
-
     <div class="card">
-      <label>ชื่อโปรเจกต์</label>
+      <label>ชื่อโปรเจกต์ / Project Name</label>
       <input type="text" id="project" placeholder="เช่น PMO Internal Tool">
     </div>
-
     <div class="card">
       <label>ชื่อ Software *</label>
       <input type="text" id="software" placeholder="เช่น Figma, Jira, Adobe CC">
     </div>
-
     <div class="card">
-      <label>จำนวน License *</label>
+      <label>จำนวน License / No. of Licenses *</label>
       <input type="number" id="qty" placeholder="เช่น 3" min="1">
     </div>
-
     <div class="card">
-      <label>งบประมาณ (บาท)</label>
+      <label>งบประมาณ / Budget (THB)</label>
       <input type="number" id="budget" placeholder="เช่น 15000" min="0">
     </div>
-
     <div class="card">
-      <label>ระยะเวลาที่ต้องการ</label>
+      <label>ระยะเวลา / Duration</label>
       <select id="duration">
-        <option value="">-- เลือกระยะเวลา --</option>
-        <option>1 เดือน</option>
-        <option>3 เดือน</option>
-        <option>6 เดือน</option>
-        <option>1 ปี</option>
-        <option>ถาวร (Perpetual)</option>
+        <option value="">-- เลือก / Select --</option>
+        <option>1 เดือน / 1 Month</option>
+        <option>3 เดือน / 3 Months</option>
+        <option>6 เดือน / 6 Months</option>
+        <option>1 ปี / 1 Year</option>
+        <option>ถาวร / Perpetual</option>
       </select>
     </div>
-
     <div class="card">
-      <label>วันที่ขอ</label>
+      <label>วันที่ขอ / Request Date</label>
       <input type="date" id="reqdate">
     </div>
-
     <div class="card">
-      <label>Email หัวหน้าผู้ขอ</label>
-      <input type="email" id="manager_email" placeholder="manager@company.com">
+      <label>ชื่อหัวหน้า / Manager Name</label>
+      <input type="text" id="manager_name" placeholder="เช่น วิ้ง วิภาวรรณ">
     </div>
-
     <div class="card full">
-      <label>เหตุผลที่ขอ</label>
+      <label>เหตุผลที่ขอ / Justification *</label>
       <textarea id="reason" rows="3" placeholder="อธิบายเหตุผลที่ต้องการ license นี้..."></textarea>
     </div>
-
   </div>
 
-  <button class="primary" onclick="generateMemo()">สร้าง Memo และ Draft Email →</button>
+  <div class="btn-row">
+    <button class="secondary" onclick="previewMemo()">Preview ก่อน Print</button>
+    <button class="secondary" onclick="generatePDF()">Download PDF →</button>
+  </div>
+</div>
 
-  <div class="output" id="output">
-
-    <div class="output-card">
-      <div class="output-label">Memo — Software License Request</div>
-      <div class="output-text" id="memo-content"></div>
+<!-- PDF Template -->
+<div id="pdf-template">
+  <div class="pdf-header">
+    <div>
+      <img id="pdf-logo" class="pdf-logo" src="" alt="logo" style="display:none;">
+      <div id="pdf-no-logo" style="font-size:16px; font-weight:600; color:#1a1a1a;">ORBIT DIGITAL</div>
     </div>
-
-    <div class="output-card">
-      <div class="output-label">Draft Email</div>
-      <div class="output-text" id="email-content"></div>
+    <div class="pdf-company">
+      Software License Request Memo<br>
+      <span id="pdf-ref-num" style="color:#aaa;"></span>
     </div>
-
-    <div class="btn-row">
-      <button class="secondary" onclick="copyText('memo-content', this)">คัดลอก Memo</button>
-      <button class="secondary" onclick="copyText('email-content', this)">คัดลอก Email</button>
-    </div>
-
   </div>
 
+  <div class="pdf-title" id="pdf-title">บันทึกข้อความขออนุมัติ Software License</div>
+  <div class="pdf-subtitle" id="pdf-subtitle"></div>
+
+  <div class="pdf-meta">
+    <div class="pdf-meta-item">
+      <div class="pdf-meta-label">ผู้ขอ / Requested by</div>
+      <div class="pdf-meta-value" id="pdf-requester">-</div>
+    </div>
+    <div class="pdf-meta-item">
+      <div class="pdf-meta-label">วันที่ / Date</div>
+      <div class="pdf-meta-value" id="pdf-date">-</div>
+    </div>
+    <div class="pdf-meta-item">
+      <div class="pdf-meta-label">โปรเจกต์ / Project</div>
+      <div class="pdf-meta-value" id="pdf-project">-</div>
+    </div>
+    <div class="pdf-meta-item">
+      <div class="pdf-meta-label">หัวหน้า / Manager</div>
+      <div class="pdf-meta-value" id="pdf-manager">-</div>
+    </div>
+  </div>
+
+  <div class="pdf-section">
+    <div class="pdf-section-title">รายละเอียดการขอ / Request Details</div>
+    <div class="pdf-detail-row"><span class="pdf-detail-label">Software</span><span class="pdf-detail-value" id="pdf-software">-</span></div>
+    <div class="pdf-detail-row"><span class="pdf-detail-label">จำนวน License / Qty</span><span class="pdf-detail-value" id="pdf-qty">-</span></div>
+    <div class="pdf-detail-row"><span class="pdf-detail-label">ระยะเวลา / Duration</span><span class="pdf-detail-value" id="pdf-duration">-</span></div>
+    <div class="pdf-detail-row"><span class="pdf-detail-label">งบประมาณ / Budget</span><span class="pdf-detail-value" id="pdf-budget">-</span></div>
+  </div>
+
+  <div class="pdf-section">
+    <div class="pdf-section-title">เหตุผล / Justification</div>
+    <div class="pdf-reason-box" id="pdf-reason">-</div>
+  </div>
+
+  <div class="pdf-signature-section">
+    <div class="pdf-sig-box">
+      <div class="pdf-sig-space"></div>
+      <div class="pdf-sig-label">ผู้ขอ / Requested by</div>
+      <div class="pdf-sig-name" id="pdf-sig-requester">-</div>
+      <div class="pdf-sig-date">วันที่ / Date: _______________</div>
+    </div>
+    <div class="pdf-sig-box">
+      <div class="pdf-sig-space"></div>
+      <div class="pdf-sig-label">หัวหน้าอนุมัติ / Approved by</div>
+      <div class="pdf-sig-name" id="pdf-sig-manager">-</div>
+      <div class="pdf-sig-date">วันที่ / Date: _______________</div>
+    </div>
+  </div>
+
+  <div class="pdf-ref" id="pdf-footer-ref"></div>
+  <div class="pdf-footer">
+    <span>PMO Internal Tool — Software License Request</span>
+    <span id="pdf-footer-date"></span>
+  </div>
 </div>
 
 <script>
-  document.getElementById('reqdate').valueAsDate = new Date();
+let currentLang = 'th';
+let logoDataUrl = '';
 
-  function val(id) { return document.getElementById(id).value.trim(); }
+document.getElementById('reqdate').valueAsDate = new Date();
 
-  function generateMemo() {
-    const requester = val('requester');
-    const project = val('project');
-    const software = val('software');
-    const qty = val('qty');
-    const budget = val('budget');
-    const duration = val('duration');
-    const reason = val('reason');
-    const reqdate = val('reqdate');
-    const managerEmail = val('manager_email');
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-    if (!requester || !software || !qty) {
-      alert('กรุณากรอกชื่อผู้ขอ, ชื่อ Software และจำนวน License ก่อนนะคะ');
-      return;
-    }
+function previewLogo(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    logoDataUrl = e.target.result;
+    const preview = document.getElementById('logo-preview');
+    preview.src = logoDataUrl;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
 
-    const dateStr = reqdate
-      ? new Date(reqdate).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
-      : new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+function val(id) { return document.getElementById(id).value.trim(); }
 
-    const budgetStr = budget ? parseInt(budget).toLocaleString('th-TH') + ' บาท' : '-';
+function fillPDFTemplate() {
+  const requester = val('requester');
+  const project = val('project');
+  const software = val('software');
+  const qty = val('qty');
+  const budget = val('budget');
+  const duration = val('duration');
+  const reason = val('reason');
+  const reqdate = val('reqdate');
+  const managerName = val('manager_name');
 
-    const memo =
-`บันทึกข้อความ
-เรื่อง: ขออนุมัติ Software License — ${software}
-วันที่: ${dateStr}
-ผู้ขอ: ${requester}${project ? '\nโปรเจกต์: ' + project : ''}
-
-รายละเอียดการขอ:
-• Software: ${software}
-• จำนวน License: ${qty} ใบอนุญาต
-• ระยะเวลา: ${duration || '-'}
-• งบประมาณ: ${budgetStr}
-
-เหตุผล:
-${reason || '-'}
-
-จึงเรียนมาเพื่อขออนุมัติ
-${requester}`;
-
-    const email =
-`เรียน ทีม PMO${managerEmail ? ' และหัวหน้าผู้ขอ' : ''},
-
-แจ้งการขออนุมัติ Software License ดังรายละเอียดด้านล่าง
-
-ผู้ขอ: ${requester}
-Software: ${software}
-จำนวน: ${qty} license
-ระยะเวลา: ${duration || '-'}
-งบประมาณ: ${budgetStr}
-เหตุผล: ${reason || '-'}
-
-กรุณาตรวจสอบและอนุมัติภายใน 3 วันทำการ
-
-ขอบคุณค่ะ/ครับ
-${requester}
-
----
-[draft อัตโนมัติจาก PMO Memo Generator]`;
-
-    document.getElementById('memo-content').innerText = memo;
-    document.getElementById('email-content').innerText = email;
-    document.getElementById('output').style.display = 'block';
-    document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (!requester || !software || !qty) {
+    alert('กรุณากรอกชื่อผู้ขอ, ชื่อ Software และจำนวน License ก่อนนะคะ');
+    return false;
   }
 
-  function copyText(id, btn) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      const orig = btn.innerText;
-      btn.innerText = 'คัดลอกแล้ว ✓';
-      setTimeout(() => btn.innerText = orig, 2000);
-    });
+  const d = reqdate ? new Date(reqdate) : new Date();
+  const dateStr = d.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+  const dateStrEn = d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+  const budgetStr = budget ? parseInt(budget).toLocaleString('th-TH') + ' THB' : '-';
+  const refNum = 'PMO-SL-' + d.getFullYear() + '-' + String(Date.now()).slice(-4);
+
+  const pdfLogo = document.getElementById('pdf-logo');
+  const pdfNoLogo = document.getElementById('pdf-no-logo');
+  if (logoDataUrl) {
+    pdfLogo.src = logoDataUrl;
+    pdfLogo.style.display = 'block';
+    pdfNoLogo.style.display = 'none';
+  } else {
+    pdfLogo.style.display = 'none';
+    pdfNoLogo.style.display = 'block';
   }
+
+  if (currentLang === 'th') {
+    document.getElementById('pdf-title').textContent = 'บันทึกข้อความขออนุมัติ Software License';
+    document.getElementById('pdf-subtitle').textContent = '';
+    document.getElementById('pdf-date').textContent = dateStr;
+  } else if (currentLang === 'en') {
+    document.getElementById('pdf-title').textContent = 'Software License Request Memorandum';
+    document.getElementById('pdf-subtitle').textContent = '';
+    document.getElementById('pdf-date').textContent = dateStrEn;
+  } else {
+    document.getElementById('pdf-title').textContent = 'บันทึกข้อความขออนุมัติ Software License';
+    document.getElementById('pdf-subtitle').textContent = 'Software License Request Memorandum';
+    document.getElementById('pdf-date').textContent = dateStr + ' / ' + dateStrEn;
+  }
+
+  document.getElementById('pdf-ref-num').textContent = 'Ref: ' + refNum;
+  document.getElementById('pdf-requester').textContent = requester;
+  document.getElementById('pdf-project').textContent = project || '-';
+  document.getElementById('pdf-manager').textContent = managerName || '-';
+  document.getElementById('pdf-software').textContent = software;
+  document.getElementById('pdf-qty').textContent = qty + ' licenses';
+  document.getElementById('pdf-duration').textContent = duration || '-';
+  document.getElementById('pdf-budget').textContent = budgetStr;
+  document.getElementById('pdf-reason').textContent = reason || '-';
+  document.getElementById('pdf-sig-requester').textContent = requester;
+  document.getElementById('pdf-sig-manager').textContent = managerName || '_______________';
+  document.getElementById('pdf-footer-ref').textContent = 'Ref: ' + refNum;
+  document.getElementById('pdf-footer-date').textContent = 'Generated: ' + new Date().toLocaleString('th-TH');
+  return true;
+}
+
+function previewMemo() {
+  if (!fillPDFTemplate()) return;
+  const tmpl = document.getElementById('pdf-template');
+  tmpl.style.display = 'block';
+  tmpl.scrollIntoView({ behavior: 'smooth' });
+}
+
+function generatePDF() {
+  if (!fillPDFTemplate()) return;
+  document.getElementById('pdf-template').style.display = 'block';
+  setTimeout(() => window.print(), 300);
+}
 </script>
 </body>
 </html>
