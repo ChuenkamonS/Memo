@@ -5,6 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PMO Memo Generator — Orbit Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+<style>
+  @media print {
+    @page {
+      size: A4;
+      margin: 30mm 18mm 28mm 18mm;
+      @top-left {
+        content: element(header-logo);
+      }
+      @bottom-center {
+        content: element(footer-content);
+        font-family: 'TH Sarabun New', Sarabun, serif;
+        font-size: 8pt;
+        font-weight: 700;
+        border-top: 0.5px solid #aaa;
+        width: 100%;
+        text-align: center;
+        padding-top: 4px;
+      }
+    }
+  }
+  #running-header {
+    position: running(header-logo);
+    display: none;
+  }
+  #running-footer {
+    position: running(footer-content);
+    display: none;
+  }
+  @media print {
+    #running-header, #running-footer { display: block; }
+  }
+</style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Sarabun',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem}
@@ -381,6 +414,13 @@ button.secondary:hover{background:#E6F1FB}
 </div>
 
 <!-- PDF TEMPLATE -->
+<div id="running-header">
+  <img id="running-logo" src="Picture1.png" style="height:36px;object-fit:contain" alt="Orbit Digital" onerror="this.style.display='none'">
+</div>
+<div id="running-footer">
+  <strong>บริษัท ออร์บิท ดิจิทัล จำกัด</strong><br>
+  <span style="font-weight:400;font-size:7.5pt;color:#555">51 ถนนนราธิวาสราชนครินทร์ แขวงสีลม เขตบางรัก กรุงเทพมหานคร</span>
+</div>
 <div id="pdf-template">
 <div class="preview-wrap">
 <div class="memo-page">
