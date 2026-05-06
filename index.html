@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PMO Memo Generator — Orbit Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun+New:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   @media print {
   
@@ -14,7 +15,7 @@
 </style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sarabun',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem}
+body{font-family:'Sarabun New','Sarabun',sans-serif;background:#f5f5f3;color:#1a1a1a;padding:2rem 1rem}
 .container{max-width:780px;margin:0 auto}
 h1{font-size:22px;font-weight:500;margin-bottom:4px}
 .subtitle{font-size:13px;color:#888;margin-bottom:1.5rem}
@@ -79,7 +80,7 @@ button.secondary:hover{background:#E6F1FB}
   .preview-wrap{background:#fff!important;padding:0!important;box-shadow:none!important;border:none!important}
   .memo-page{box-shadow:none!important;border:none!important;margin:0!important;padding:0!important;max-width:100%!important}
 }
-.memo-page{font-family:'TH Sarabun New','Sarabun',serif;font-size:10pt;color:#000;background:#fff;padding:20px 40px 24px;max-width:820px;margin:0 auto;line-height:1.75}
+.memo-page{font-family:'Sarabun New','TH Sarabun New','Sarabun',serif;font-size:10pt;color:#000;background:#fff;padding:20px 40px 24px;max-width:820px;margin:0 auto;line-height:1.75}
 .mp-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .mp-logo{max-height:64px;max-width:150px;object-fit:contain}
 .mp-hdr-right{text-align:right;font-size:10pt;line-height:2}
@@ -169,17 +170,6 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card"><label>วันที่แปลงเรท USD→THB</label><input type="date" id="sl-ratedate"></div>
       <div class="card"><label>จำนวนเงินเป็นตัวอักษร</label><input type="text" id="sl-amttext" placeholder="เช่น สองแสนห้าหมื่นห้าพันบาทถ้วน"></div>
     </div>
-    <div class="sec">Reviewer</div>
-    <div class="grid">
-      <div class="card"><label>ชื่อผู้จัดการโครงการ *</label><input type="text" id="sl-pm" placeholder="กรุณากรอกชื่อ-นามสกุล"></div>
-      <div class="card"><label>วันที่ลงนาม *</label><input type="date" id="sl-signdate"></div>
-    </div>
-    <div class="sec">Approver</div>
-    <div class="grid">
-      <div class="card"><label>ชื่อผู้อนุมัติ *</label><input type="text" id="sl-ceo" placeholder="กรุณากรอกชื่อ-นามสกุล"></div>
-      <div class="card"><label>ตำแหน่งผู้อนุมัติ *</label><input type="text" id="sl-ceotitle" value="ประธานเจ้าหน้าที่บริหาร"></div>
-      <div class="card"><label>วันที่ลงนาม *</label><input type="date" id="sl-ceo-signdate"></div>
-    </div>
     <!-- Fix #7: Account table fixed alignment -->
     <div class="sec">ตาราง Account <span style="font-weight:400;color:#aaa;font-size:11px">(optional)</span></div>
     <div class="card full" style="margin-bottom:12px">
@@ -197,6 +187,17 @@ button.secondary:hover{background:#E6F1FB}
         </table>
       </div>
       <button class="add-btn" style="margin-top:8px" onclick="addAcctTableRow()">+ เพิ่ม Account</button>
+    </div>
+    <div class="sec">Reviewer</div>
+    <div class="grid">
+      <div class="card"><label>ชื่อผู้จัดการโครงการ *</label><input type="text" id="sl-pm" placeholder="กรุณากรอกชื่อ-นามสกุล"></div>
+      <div class="card"><label>วันที่ลงนาม *</label><input type="date" id="sl-signdate"></div>
+    </div>
+    <div class="sec">Approver</div>
+    <div class="grid">
+      <div class="card"><label>ชื่อผู้อนุมัติ *</label><input type="text" id="sl-ceo" placeholder="กรุณากรอกชื่อ-นามสกุล"></div>
+      <div class="card"><label>ตำแหน่งผู้อนุมัติ *</label><input type="text" id="sl-ceotitle" value="ประธานเจ้าหน้าที่บริหาร"></div>
+      <div class="card"><label>วันที่ลงนาม *</label><input type="date" id="sl-ceo-signdate"></div>
     </div>
     <div class="btn-row">
       <button class="secondary" onclick="go('sl',false)">Preview</button>
@@ -220,6 +221,7 @@ button.secondary:hover{background:#E6F1FB}
       <div class="card full">
         <label>วัตถุประสงค์</label>
         <select id="int-reason-select" onchange="toggleOtherReason('int')">
+          <option value="">-- เลือกวัตถุประสงค์ --</option>
           <option value="เพื่อเสริมสร้างกำลังใจในการปฏิบัติงาน และส่งเสริมการทำงานเป็นทีม">เพื่อเสริมสร้างกำลังใจในการปฏิบัติงาน และส่งเสริมการทำงานเป็นทีม</option>
           <option value="เพื่อเสริมสร้างความสัมพันธ์ในทีมและพัฒนาการทำงานร่วมกัน">เพื่อเสริมสร้างความสัมพันธ์ในทีมและพัฒนาการทำงานร่วมกัน</option>
           <option value="other">อื่นๆ (กรอกเอง)</option>
@@ -643,7 +645,7 @@ const FILL={
     const subjectOverride=v('sl-subject-override');
     const autoSubject=`ขออนุมัติงบประมาณเพื่อการจัดซื้อโปรแกรมสำหรับการพัฒนาในโครงการ ${project} โดยชำระเงินผ่านบัตรเครดิตบริษัท Orbit Digital 0321`;
     setHdr(v('sl-docno'),v('sl-date'),v('sl-to'),subjectOverride||autoSubject);
-    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วยพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องใช้งานโปรแกรม${lics.map(l=>` ${l.name}`).join(' และ')} ${reason} จึงขออนุมัติงบประมาณเพื่อต่ออายุการใช้งานโปรแกรม ตามรายละเอียดดังต่อไปนี้</p><ol class="mp-list">${lics.map(l=>`<li>โปรแกรม ${l.name} License ราคา ${l.price.toLocaleString('th-TH')} บาท/เดือน (ช่วงเดือน${sM} - ${eM})</li>`).join('')}</ol>`;
+    document.getElementById('pdf-body').innerHTML=`<p style="text-indent:3em">เนื่องด้วยพนักงานโครงการ ${project} บริษัท ออร์บิท ดิจิทัล จำกัด มีความจำเป็นต้องใช้งานโปรแกรม${lics.length===1?` ${lics[0].name}`:lics.length===2?` ${lics[0].name} และ ${lics[1].name}`:` ${lics.slice(0,-1).map(l=>l.name).join(', ')} และ ${lics[lics.length-1].name}`} ${reason} จึงขออนุมัติงบประมาณเพื่อต่ออายุการใช้งานโปรแกรม ตามรายละเอียดดังต่อไปนี้</p>`;
     let total=0;
     const rows=lics.map((l,i)=>{const a=l.price*l.months*l.qty;total+=a;return`<tr><td>${i+1}</td><td class="tdl">${l.name}</td><td>${l.price.toLocaleString('th-TH')}</td><td>${l.months}</td><td>${l.qty}</td><td>${a.toLocaleString('th-TH')}</td></tr>`;}).join('');
     document.getElementById('pdf-table-wrap').innerHTML=`<table class="mp-table"><thead><tr><th>No</th><th>Item</th><th>Price/Month (THB)</th><th>Month</th><th>QTY (License)</th><th>Amount (THB)</th></tr></thead><tbody>${rows}</tbody><tfoot><tr class="tr-total"><td colspan="5" style="text-align:right;font-weight:700">Total Amount</td><td>${total.toLocaleString('th-TH')}</td></tr></tfoot></table>`;
@@ -660,7 +662,7 @@ const FILL={
       document.getElementById('pdf-acct-body').innerHTML=aRows.map((r,i)=>`<tr><td>${i+1}</td><td class="tdl">${r.email}</td>${aCols.map((_,ci)=>`<td>${r.vals[ci]||'-'}</td>`).join('')}</tr>`).join('');
     } else document.getElementById('pdf-acct-wrap').style.display='none';
     const seats=lics.reduce((s,l)=>s+l.qty,0),maxM=Math.max(...lics.map(l=>l.months));
-    document.getElementById('pdf-closing').textContent=`ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายดังกล่าว ซึ่งเป็นค่าใช้จ่ายซื้อ ${lics.map(l=>l.name).join(' และ ')} จำนวนรวมทั้งหมด ${seats} Seats ระยะเวลา ${maxM} เดือน รวมเป็นจำนวนเงินไม่เกิน ${total.toLocaleString('th-TH')} บาท ${v('sl-amttext')?'('+v('sl-amttext')+') ':''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าบริการ ซึ่งให้อำนาจแก่${v('sl-to')}ในวงเงินไม่เกิน 2,000,000 บาท`;
+    document.getElementById('pdf-closing').textContent=`ในการนี้จึงขอให้ท่านโปรดพิจารณาอนุมัติงบประมาณสำหรับค่าใช้จ่ายดังกล่าว ซึ่งเป็นค่าใช้จ่ายซื้อ ${(lics.length===1?lics[0].name:lics.length===2?`${lics[0].name} และ ${lics[1].name}`:`${lics.slice(0,-1).map(l=>l.name).join(', ')} และ ${lics[lics.length-1].name}`)} จำนวนรวมทั้งหมด ${seats} Seats ระยะเวลา ${maxM} เดือน รวมเป็นจำนวนเงินไม่เกิน ${total.toLocaleString('th-TH')} บาท ${v('sl-amttext')?'('+v('sl-amttext')+') ':''} อ้างอิงอำนาจอนุมัติจากคู่มืออำนาจอนุมัติ พ.ศ. 2566 ข้อ 3.2 การชำระเงิน (ที่มีการตั้งงบประมาณไว้) หมวดการชำระค่าบริการ ซึ่งให้อำนาจแก่${v('sl-to')}ในวงเงินไม่เกิน 2,000,000 บาท`;
     setApproval(pm,'ผู้จัดการโครงการ',fmtShort(v('sl-signdate')),v('sl-ceo'),v('sl-ceotitle'),fmtShort(v('sl-ceo-signdate')),v('sl-to'));
     return true;
   },
@@ -782,11 +784,11 @@ const TAB_PREFIX={sl:'SL',int:'INT',hw:'HW',ent:'ENT',dep:'DEP'};
 const TAB_DATE={sl:'sl-date',int:'int-date',hw:'hw-date',ent:'ent-date',dep:'dep-date'};
 const TAB_DOCNO={sl:'sl-docno',int:'int-docno',hw:'hw-docno',ent:'ent-docno',dep:'dep-docno'};
 
-async function go(tab,print){
+async function go(tab,doPrint){
   if(!FILL[tab]())return;
   const t=document.getElementById('pdf-template');
   t.style.display='block';t.style.visibility='visible';t.style.height='auto';t.style.overflow='visible';
-  if(print){
+  if(doPrint){
     const type=TAB_PREFIX[tab];
     const docno=v(TAB_DOCNO[tab]);
     const date=v(TAB_DATE[tab]);
