@@ -5,38 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PMO Memo Generator — Orbit Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
 <style>
   @media print {
-    @page {
-      size: A4;
-      margin: 30mm 18mm 28mm 18mm;
-      @top-left {
-        content: element(header-logo);
-      }
-      @bottom-center {
-        content: element(footer-content);
-        font-family: 'TH Sarabun New', Sarabun, serif;
-        font-size: 8pt;
-        font-weight: 700;
-        border-top: 0.5px solid #aaa;
-        width: 100%;
-        text-align: center;
-        padding-top: 4px;
-      }
-    }
-  }
-  #running-header {
-    position: running(header-logo);
-    display: none;
-  }
-  #running-footer {
-    position: running(footer-content);
-    display: none;
+  
   }
   @media print {
-    #running-header, #running-footer { display: block; }
-  }
+    #running-header, }
 </style>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -95,7 +69,7 @@ button.secondary:hover{background:#E6F1FB}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.row-sl,.row-hw,.row-dep{grid-template-columns:1fr}.row-hdr{display:none}}
 
 /* ===== PDF ===== */
-#pdf-template{display:none;margin-top:2rem}
+#pdf-template{display:none!important;visibility:hidden;height:0;overflow:hidden;margin-top:2rem}
 @media print{
   body>.container{display:none!important}
   #pdf-template{display:block!important;margin:0;padding:0}
@@ -104,8 +78,6 @@ button.secondary:hover{background:#E6F1FB}
   html,body{background:#fff!important}
   .preview-wrap{background:#fff!important;padding:0!important;box-shadow:none!important;border:none!important}
   .memo-page{box-shadow:none!important;border:none!important;margin:0!important;padding:0!important;max-width:100%!important}
-  .print-header{display:none!important}
-  .print-footer{display:none!important}
 }
 .memo-page{font-family:'TH Sarabun New','Sarabun',serif;font-size:10pt;color:#000;background:#fff;padding:20px 40px 24px;max-width:820px;margin:0 auto;line-height:1.75}
 .mp-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
@@ -429,13 +401,6 @@ button.secondary:hover{background:#E6F1FB}
 </div>
 
 <!-- PDF TEMPLATE -->
-<div id="running-header">
-  <img id="running-logo" src="Picture1.png" style="height:36px;object-fit:contain" alt="Orbit Digital" onerror="this.style.display='none'">
-</div>
-<div id="running-footer">
-  <strong>บริษัท ออร์บิท ดิจิทัล จำกัด</strong><br>
-  <span style="font-weight:400;font-size:7.5pt;color:#555">51 ถนนนราธิวาสราชนครินทร์ แขวงสีลม เขตบางรัก กรุงเทพมหานคร</span>
-</div>
 <div id="pdf-template">
 <div class="preview-wrap">
 <div class="memo-page">
@@ -483,7 +448,7 @@ function switchTab(tab,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('tab-'+tab).classList.add('active');
-  document.getElementById('pdf-template').style.display='none';
+  const _pt=document.getElementById('pdf-template');_pt.style.display='none';_pt.style.visibility='hidden';_pt.style.height='0';_pt.style.overflow='hidden';
 }
 
 // Fix #1: toggle other reason
@@ -796,7 +761,7 @@ function generateWord(tab){
     .mp-note{font-size:9pt;margin:4px 0 12px}
     .mp-closing p{text-indent:3em}
     .mp-footer{margin-top:14px;border-top:1px solid #888;padding-top:8px;text-align:center;font-weight:700}
-    .print-header,.print-footer{display:none}
+    .print-header,
   </style>
   </head><body>${page}</body></html>`;
   const blob=new Blob(['﻿'+html],{type:'application/msword'});
@@ -820,7 +785,7 @@ const TAB_DOCNO={sl:'sl-docno',int:'int-docno',hw:'hw-docno',ent:'ent-docno',dep
 async function go(tab,print){
   if(!FILL[tab]())return;
   const t=document.getElementById('pdf-template');
-  t.style.display='block';
+  t.style.display='block';t.style.visibility='visible';t.style.height='auto';t.style.overflow='visible';
   if(print){
     const type=TAB_PREFIX[tab];
     const docno=v(TAB_DOCNO[tab]);
